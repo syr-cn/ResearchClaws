@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case 2: 自动化论文阅读与笔记管理 | ResearchClaws</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f1117;--bg-card:#1a1d27;--bg-chat:#141620;--accent:#6c5ce7;--accent2:#00cec9;--accent3:#fd79a8;--accent4:#a29bfe;--text:#e2e8f0;--text-dim:#8892a8;--text-muted:#4a5568;--user-bubble:#2d3748;--ai-bubble:#1e2235;--border:rgba(255,255,255,0.06)}
+html,body{width:1920px;height:1080px;font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+.page{display:grid;grid-template-columns:360px 1fr 400px;grid-template-rows:72px 1fr;height:1080px;width:1920px}
+.header{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:linear-gradient(90deg,rgba(108,92,231,0.08),transparent 50%,rgba(162,155,254,0.08));border-bottom:1px solid var(--border)}
+.header-left{display:flex;align-items:center;gap:16px}
+.header-logo{font-size:22px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header-case{font-size:14px;color:var(--text-dim);padding:4px 14px;background:rgba(162,155,254,0.12);border-radius:20px;border:1px solid rgba(162,155,254,0.2)}
+.header-tag{padding:4px 12px;border-radius:12px;font-size:12px;font-weight:500}
+.tag-note{background:rgba(162,155,254,0.12);color:var(--accent4);border:1px solid rgba(162,155,254,0.25)}
+.tag-auto{background:rgba(0,206,201,0.12);color:var(--accent2);border:1px solid rgba(0,206,201,0.25)}
+.header-right{display:flex;align-items:center;gap:24px;font-size:13px;color:var(--text-muted)}
+.panel-left{background:var(--bg-card);border-right:1px solid var(--border);padding:24px 20px;display:flex;flex-direction:column;overflow:hidden}
+.panel-title{font-size:13px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:20px}
+.flow-step{display:flex;gap:14px;margin-bottom:6px;position:relative}
+.flow-line{width:2px;background:rgba(162,155,254,0.2);position:absolute;left:15px;top:32px;bottom:-6px}
+.flow-step:last-child .flow-line{display:none}
+.flow-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;position:relative;z-index:1}
+.flow-dot.done{background:rgba(0,206,201,0.15);border:1.5px solid var(--accent2)}
+.flow-dot.active{background:var(--accent4);box-shadow:0 0 16px rgba(162,155,254,0.3)}
+.flow-content{flex:1;padding-bottom:16px}
+.flow-label{font-size:14px;font-weight:700;line-height:32px}
+.flow-desc{font-size:12px;color:var(--text-dim);line-height:1.6}
+.flow-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;margin-top:4px;font-family:'JetBrains Mono',monospace}
+.badge-tool{background:rgba(253,121,168,0.1);color:var(--accent3);border:1px solid rgba(253,121,168,0.2)}
+.badge-source{background:rgba(0,206,201,0.1);color:var(--accent2);border:1px solid rgba(0,206,201,0.2)}
+.badge-file{background:rgba(162,155,254,0.1);color:var(--accent4);border:1px solid rgba(162,155,254,0.2)}
+.stats-box{margin-top:auto;background:rgba(162,155,254,0.06);border:1px solid rgba(162,155,254,0.15);border-radius:12px;padding:16px}
+.stats-title{font-size:11px;font-weight:700;color:var(--accent4);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.stat-row:last-child{margin-bottom:0}
+.stat-label{font-size:12px;color:var(--text-dim)}
+.stat-value{font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.sv-cyan{color:var(--accent2)}.sv-purple{color:var(--accent4)}.sv-pink{color:var(--accent3)}
+.panel-center{background:var(--bg-chat);display:flex;flex-direction:column;overflow:hidden}
+.chat-header{padding:16px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.chat-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px}
+.avatar-ai{background:linear-gradient(135deg,var(--accent),var(--accent2))}.avatar-user{background:var(--user-bubble);font-size:14px}
+.chat-name{font-size:14px;font-weight:700}.chat-status{font-size:12px;color:var(--accent4)}
+.chat-body{flex:1;padding:16px 28px;overflow:hidden;display:flex;flex-direction:column;gap:14px}
+.msg{display:flex;gap:10px;max-width:95%}.msg-ai{align-self:flex-start}.msg-user{align-self:flex-end;flex-direction:row-reverse}
+.msg-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:2px}
+.msg-bubble{padding:12px 16px;border-radius:16px;font-size:12.5px;line-height:1.7}
+.msg-ai .msg-bubble{background:var(--ai-bubble);border:1px solid var(--border);border-top-left-radius:4px}
+.msg-user .msg-bubble{background:var(--accent);color:#fff;border-top-right-radius:4px}
+.tool-call{display:flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(162,155,254,0.06);border:1px solid rgba(162,155,254,0.12);border-radius:10px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--accent4);align-self:flex-start;margin-left:38px}
+.tool-call .tool-name{font-weight:700}.tool-call .tool-detail{color:var(--text-muted)}
+.file-footer{margin-left:38px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--text-muted);padding:4px 0;border-top:1px dashed rgba(255,255,255,0.05)}
+.file-footer span{color:var(--accent)}
+.panel-right{background:var(--bg-card);border-left:1px solid var(--border);padding:20px 18px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.panel-right-scroll{flex:1;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.output-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;padding:11px 14px;flex-shrink:0}
+.output-card-title{font-size:11px;font-weight:700;color:var(--accent2);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.note-preview{font-size:11px;color:var(--text-dim);line-height:1.7;padding-left:12px;border-left:2px solid var(--accent4)}
+.note-field{margin-bottom:3px}.note-field-label{color:var(--accent2);font-weight:700;font-size:10px}
+.rl-table{width:100%;border-collapse:collapse;font-size:11px}
+.rl-table th{text-align:left;font-size:10px;color:var(--accent4);font-weight:700;padding:4px 6px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:0.5px}
+.rl-table td{padding:5px 6px;color:var(--text-dim);border-bottom:1px solid rgba(255,255,255,0.02)}
+.rl-table td:first-child{color:var(--text);font-weight:500}
+.rl-status{font-size:9px;padding:1px 6px;border-radius:4px;font-weight:500}
+.rls-done{background:rgba(0,206,201,0.12);color:var(--accent2)}
+.rls-reading{background:rgba(162,155,254,0.12);color:var(--accent4)}
+.rls-new{background:rgba(253,121,168,0.12);color:var(--accent3)}
+.file-tree{font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.8;color:var(--text-dim)}
+.git-item{display:flex;gap:8px;margin-bottom:6px;align-items:flex-start}.git-item:last-child{margin-bottom:0}
+.git-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.gd-new{background:var(--accent2)}.gd-update{background:var(--accent4)}.gd-push{background:var(--accent3)}
+.git-text{font-size:11px;line-height:1.4;color:var(--text-dim);font-family:'JetBrains Mono',monospace}
+.git-text strong{color:var(--text);font-weight:600}
+.watermark{position:fixed;bottom:16px;right:24px;font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;opacity:0.5}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="header">
+<div class="header-left">
+<div class="header-logo">🐱 ResearchClaws</div>
+<div class="header-case">Case 2 · 自动化论文阅读与笔记管理</div>
+<span class="header-tag tag-note">📖 DNL 笔记</span>
+<span class="header-tag tag-auto">🔄 Reading List 同步</span>
+</div>
+<div class="header-right">
+<span>2026-03-15 ~ 03-25 · 持续运行</span>
+<span style="color:var(--accent4)">●</span>
+<span>11 天 · 23 篇笔记 · 4 份 Reading List</span>
+</div>
+</div>
+
+<div class="panel-left">
+<div class="panel-title">📖 笔记工作流</div>
+<div class="flow-step"><div class="flow-dot done">📩</div><div class="flow-content"><div class="flow-label">用户发送论文链接</div><div class="flow-desc">arXiv link / PDF / 论文标题<br>"帮我 DNL 一下这篇"</div></div><div class="flow-line"></div></div>
+<div class="flow-step"><div class="flow-dot done">📄</div><div class="flow-content"><div class="flow-label">获取论文全文</div><div class="flow-desc">自动下载 PDF / 提取 arXiv 源<br>识别 title · authors · venue</div><span class="flow-badge badge-tool">pdf_analysis</span> <span class="flow-badge badge-source">web_fetch</span></div><div class="flow-line"></div></div>
+<div class="flow-step"><div class="flow-dot done">✍️</div><div class="flow-content"><div class="flow-label">生成 DNL 结构化笔记</div><div class="flow-desc">11 字段标准模板：<br>Motivation · Method · Contribution<br>Experiments · Limitations · Relevance…</div><span class="flow-badge badge-file">papers/YYYY-MM-DD_name.md</span></div><div class="flow-line"></div></div>
+<div class="flow-step"><div class="flow-dot done">📋</div><div class="flow-content"><div class="flow-label">同步 Reading List</div><div class="flow-desc">按 topic 分类更新表格<br>自动插入 Alias 超链接指向笔记<br>更新 now.md 当前阅读状态</div><span class="flow-badge badge-file">readinglist/*.md</span></div><div class="flow-line"></div></div>
+<div class="flow-step"><div class="flow-dot done">📂</div><div class="flow-content"><div class="flow-label">写入 Obsidian Vault</div><div class="flow-desc">同步到 Obsidian 知识库<br>支持双向链接 · 标签索引</div><span class="flow-badge badge-tool">obsidian_write</span></div><div class="flow-line"></div></div>
+<div class="flow-step"><div class="flow-dot active">🚀</div><div class="flow-content"><div class="flow-label">自动 Commit & Push</div><div class="flow-desc">每次修改即时提交到 Git repo<br>保持版本可回溯</div><span class="flow-badge badge-tool">git push</span></div></div>
+<div class="stats-box"><div class="stats-title">📈 累计统计 (11 天)</div>
+<div class="stat-row"><span class="stat-label">深度笔记</span><span class="stat-value sv-purple">23 篇 (DNL)</span></div>
+<div class="stat-row"><span class="stat-label">Reading List</span><span class="stat-value sv-cyan">4 份 (分 topic)</span></div>
+<div class="stat-row"><span class="stat-label">Git commits</span><span class="stat-value sv-pink">47 次</span></div>
+<div class="stat-row"><span class="stat-label">人工等价耗时</span><span class="stat-value sv-cyan">~46h (2h/篇)</span></div>
+</div></div>
+
+<div class="panel-center">
+<div class="chat-header"><div class="chat-avatar avatar-ai">🐱</div><div><div class="chat-name">Octivia · Research Assistant</div><div class="chat-status">● Paper Reading Mode</div></div></div>
+<div class="chat-body">
+<div class="msg msg-user"><div class="msg-avatar avatar-user">👤</div><div class="msg-bubble">帮我 DNL 一下这篇：arxiv.org/abs/2603.18743</div></div>
+<div class="tool-call"><span>📄</span><span class="tool-name">pdf</span><span class="tool-detail">2603.18743 · Memento-Skills · 28 pages</span></div>
+<div class="msg msg-ai"><div class="msg-avatar avatar-ai" style="background:linear-gradient(135deg,var(--accent),var(--accent2))">🐱</div><div class="msg-bubble">DNL 笔记写好了！(*^ω^*)<br><br><strong style="color:var(--accent4)">Memento-Skills</strong> — Agent 自主设计技能，外化记忆与 RL 持续进化<br><br><strong style="color:var(--accent2)">Key Insight:</strong> 将 agent 交互中学到的技能保存为可调用的外化记忆，用 RL 优化技能选择和组合<br><br><span style="font-size:11px;color:var(--text-muted)">已写入 papers/ · readinglist 已同步 · repo 已 push ✓</span></div></div>
+<div class="file-footer">> <span>papers/2026-03-25_memento-skills.md</span> +156 lines<br>> <span>readinglist/agent-topic.md</span> +1 lines<br>> <span>readinglist/now.md</span> +1 lines -1 lines<br>> <span>commit 9abc3e1:</span> Add Memento-Skills DNL note<br>> <span>pushed:</span> origin/main</div>
+<div class="msg msg-user"><div class="msg-avatar avatar-user">👤</div><div class="msg-bubble">再加这篇：PlugMem，还有 ARISE 和 EvoMem，一起做了</div></div>
+<div class="tool-call"><span>📄</span><span class="tool-name">pdf</span><span class="tool-detail">×3 papers · batch DNL · parallel</span></div>
+<div class="msg msg-ai"><div class="msg-avatar avatar-ai" style="background:linear-gradient(135deg,var(--accent),var(--accent2))">🐱</div><div class="msg-bubble">三篇全部搞定！(o^▽^o)<br><br>📝 <strong>PlugMem</strong> — agent 交互→可复用结构化知识<br>📝 <strong>ARISE</strong> — 自我进化 agent 架构搜索<br>📝 <strong>EvoMem</strong> — 进化式记忆管理框架<br><br>Reading list 已按 topic 归类更新，now.md 标记为"已读"✓</div></div>
+<div class="file-footer">> <span>papers/</span> +3 files (~405 lines total)<br>> <span>readinglist/agent-topic.md</span> +3 lines<br>> <span>commit f4d2b7a:</span> Batch DNL: PlugMem + ARISE + EvoMem<br>> <span>pushed:</span> origin/main</div>
+<div class="msg msg-user"><div class="msg-avatar avatar-user">👤</div><div class="msg-bubble">现在 readinglist 里 agent memory 方向有哪些了？</div></div>
+<div class="msg msg-ai"><div class="msg-avatar avatar-ai" style="background:linear-gradient(135deg,var(--accent),var(--accent2))">🐱</div><div class="msg-bubble">当前 <strong style="color:var(--accent4)">agent-topic.md</strong> 共 12 篇：<br><br>✅ 已精读(DNL): 8 篇 · 📖 阅读中: 2 篇 · 🆕 待读: 2 篇<br><br><span style="font-size:11px;color:var(--text-muted)">完整表格见右侧 → 所有笔记都有 Obsidian 双链</span></div></div>
+</div></div>
+
+<div class="panel-right">
+<div class="panel-title">📄 产出预览</div>
+<div class="panel-right-scroll">
+<div class="output-card"><div class="output-card-title">✍️ DNL 笔记示例 (Memento-Skills)</div>
+<div class="note-preview">
+<div class="note-field"><span class="note-field-label">Title:</span> Memento-Skills: Agent Self-Design via Externalized Memory</div>
+<div class="note-field"><span class="note-field-label">Motivation:</span> Agent 技能难以跨任务复用，缺乏持久化机制</div>
+<div class="note-field"><span class="note-field-label">Method:</span> 技能外化为结构化记忆条目，RL 优化调用策略</div>
+<div class="note-field"><span class="note-field-label">Key Result:</span> Minecraft +32% task completion, cross-domain +18%</div>
+<div class="note-field"><span class="note-field-label">Limitation:</span> 技能粒度依赖人工定义，缺少自动发现</div>
+<div class="note-field"><span class="note-field-label">Relevance:</span> 外化记忆设计可参考；粒度问题是切入点</div>
+</div></div>
+
+<div class="output-card"><div class="output-card-title">📋 Reading List: Agent Memory (12 篇)</div>
+<table class="rl-table">
+<tr><th>Paper</th><th>Status</th><th>Date</th></tr>
+<tr><td>Memento-Skills</td><td><span class="rl-status rls-done">✅ Done</span></td><td>03-25</td></tr>
+<tr><td>PlugMem</td><td><span class="rl-status rls-done">✅ Done</span></td><td>03-25</td></tr>
+<tr><td>ARISE</td><td><span class="rl-status rls-done">✅ Done</span></td><td>03-25</td></tr>
+<tr><td>EvoMem</td><td><span class="rl-status rls-done">✅ Done</span></td><td>03-25</td></tr>
+<tr><td>ReMemR1</td><td><span class="rl-status rls-done">✅ Done</span></td><td>03-18</td></tr>
+<tr><td>MemAgent-RL</td><td><span class="rl-status rls-done">✅ Done</span></td><td>03-20</td></tr>
+<tr><td>RetroFormer</td><td><span class="rl-status rls-done">✅ Done</span></td><td>03-20</td></tr>
+<tr><td>STILL-ALIVE</td><td><span class="rl-status rls-done">✅ Done</span></td><td>03-20</td></tr>
+<tr><td>MemoryBank</td><td><span class="rl-status rls-reading">📖 Reading</span></td><td>03-22</td></tr>
+<tr><td>Reflexion</td><td><span class="rl-status rls-reading">📖 Reading</span></td><td>03-22</td></tr>
+<tr><td>KARL</td><td><span class="rl-status rls-new">🆕 New</span></td><td>—</td></tr>
+<tr><td>AgentTrek</td><td><span class="rl-status rls-new">🆕 New</span></td><td>—</td></tr>
+</table></div>
+
+<div class="output-card"><div class="output-card-title">📂 Obsidian Vault 结构</div>
+<div class="file-tree">
+<span style="color:var(--accent4)">SYRs-Memory-Paper-Reading/</span><br>
+├── papers/<br>
+│   ├── <span style="color:var(--accent2)">2026-03-25_memento-skills.md</span><br>
+│   ├── <span style="color:var(--accent2)">2026-03-25_plugmem.md</span><br>
+│   ├── <span style="color:var(--accent2)">2026-03-25_arise.md</span><br>
+│   ├── <span style="color:var(--accent2)">2026-03-25_evomem.md</span><br>
+│   └── <span style="color:var(--text-muted)">... (23 files total)</span><br>
+├── readinglist/<br>
+│   ├── <span style="color:var(--accent3)">agent-topic.md</span> <span style="color:var(--text-muted);font-size:9px">12 papers</span><br>
+│   ├── <span style="color:var(--accent3)">rl-topic.md</span> <span style="color:var(--text-muted);font-size:9px">6 papers</span><br>
+│   ├── <span style="color:var(--accent3)">long-context.md</span> <span style="color:var(--text-muted);font-size:9px">5 papers</span><br>
+│   └── <span style="color:var(--accent3)">now.md</span> <span style="color:var(--text-muted);font-size:9px">current reads</span><br>
+└── templates/<br>
+    └── <span style="color:var(--text-muted)">dnl-template.md</span>
+</div></div>
+
+<div class="output-card"><div class="output-card-title">🔄 Git 历史 (近 5 次)</div>
+<div class="git-item"><div class="git-dot gd-new"></div><div class="git-text"><strong>f4d2b7a</strong> Batch DNL: PlugMem + ARISE + EvoMem</div></div>
+<div class="git-item"><div class="git-dot gd-new"></div><div class="git-text"><strong>9abc3e1</strong> Add Memento-Skills DNL note; update lists</div></div>
+<div class="git-item"><div class="git-dot gd-update"></div><div class="git-text"><strong>60f0099</strong> Refine distillation notes with CRGP template</div></div>
+<div class="git-item"><div class="git-dot gd-update"></div><div class="git-text"><strong>a141c5b</strong> Add table template from CSV reference</div></div>
+<div class="git-item"><div class="git-dot gd-push"></div><div class="git-text"><strong>bca5c13</strong> Update now.md reading status</div></div>
+</div>
+</div></div>
+
+</div>
+<div class="watermark">github.com/syr-cn/ResearchClaws · 上朝式科研</div>
+</body></html>
