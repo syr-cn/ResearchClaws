@@ -5,7 +5,7 @@ description: >
   reading list management, research taste learning, idea generation, and paper writing.
   Trigger words: 论文推荐, paper recommendation, arXiv, 读论文, paper notes, DNL,
   推荐今日论文, 每日论文, 帮我读一下, paper scout, 论文速读, 帮我安装 ResearchClaw,
-  research claws, ResearchClaw, 加入待读, 我的论文列表, reading list, 标记已读,
+  research claws, researchclaw, 加入待读, 我的论文列表, reading list, 标记已读,
   更新我的研究画像, 我的研究画像, research profile, 给我一些研究灵感, idea generator,
   跨论文分析, 帮我写论文, paper writing, 论文大纲, 写引言, rebuttal.
 metadata:
