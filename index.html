@@ -1,177 +1,307 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResearchClaws | Showcase</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #0f1117;
-            --bg-card: #1a1d27;
-            --accent: #6c5ce7;
-            --accent2: #00cec9;
-            --text: #e2e8f0;
-            --text-dim: #8892a8;
-        }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Noto Sans SC', -apple-system, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-        }
-        .subtitle {
-            color: var(--text-dim);
-            font-size: 1.1rem;
-            margin-bottom: 48px;
-        }
-        .cases {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 1200px;
-        }
-        .case-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 32px;
-            width: 280px;
-            text-decoration: none;
-            color: var(--text);
-            border: 1px solid rgba(108,92,231,0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .case-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(108,92,231,0.2);
-        }
-        .case-card .num {
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1;
-            margin-bottom: 16px;
-        }
-        .case-card h2 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .case-card p {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        .case-card .tag {
-            display: inline-block;
-            margin-top: 16px;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-        .tag-ready { background: rgba(0,206,201,0.15); color: var(--accent2); }
-        .tag-wip { background: rgba(253,121,168,0.15); color: #fd79a8; }
-        .tag-demo { background: rgba(162,155,254,0.15); color: #a29bfe; }
-        .section-label {
-            width: 100%;
-            text-align: center;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-dim);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin: 48px 0 8px;
-            font-family: 'JetBrains Mono', -apple-system, monospace;
-        }
-        .section-divider {
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(108,92,231,0.3), transparent);
-            margin-bottom: 32px;
-        }
-        footer {
-            margin-top: 64px;
-            color: var(--text-dim);
-            font-size: 0.85rem;
-        }
-        footer a { color: var(--accent); text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResearchClaws — AI 全能论文助手</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f1117;--bg-card:#1a1d27;--bg-code:#141620;
+  --accent:#6c5ce7;--accent2:#00cec9;--accent3:#fd79a8;--accent4:#a29bfe;--accent5:#ffeaa7;
+  --text:#e2e8f0;--text-dim:#8892a8;--text-muted:#4a5568;
+  --border:rgba(255,255,255,0.06);--border-acc:rgba(108,92,231,0.3);
+}
+html{background:var(--bg);scroll-behavior:smooth}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ── Nav ── */
+.nav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 0}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px;text-decoration:none}
+.nav-links{display:flex;gap:24px;font-size:13px;font-weight:500}
+.nav-links a{color:var(--text-dim);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-gh{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;background:rgba(108,92,231,0.1);border:1px solid var(--border-acc);color:var(--accent4);font-size:12px;font-weight:600;text-decoration:none;transition:background .2s}
+.nav-gh:hover{background:rgba(108,92,231,0.2);text-decoration:none}
+
+/* ── Hero ── */
+.hero{max-width:1200px;margin:0 auto;padding:80px 32px 60px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:20px;background:rgba(108,92,231,0.1);border:1px solid var(--border-acc);font-size:12px;font-weight:600;color:var(--accent4);margin-bottom:28px;font-family:'JetBrains Mono',monospace}
+.hero h1{font-size:3.5rem;font-weight:900;line-height:1.15;margin-bottom:20px;letter-spacing:-1px}
+.hero h1 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:1.15rem;color:var(--text-dim);max-width:640px;margin:0 auto 36px;line-height:1.8}
+.hero-sub strong{color:var(--text)}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);text-decoration:none}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 20px rgba(108,92,231,0.3)}
+.btn-primary:hover{box-shadow:0 8px 30px rgba(108,92,231,0.4)}
+.btn-secondary{background:rgba(0,206,201,0.1);border:1px solid rgba(0,206,201,0.25);color:var(--accent2)}
+
+/* ── Install banner ── */
+.install-banner{max-width:800px;margin:0 auto 60px;background:var(--bg-code);border:1px solid var(--border-acc);border-radius:16px;padding:24px 32px;text-align:left}
+.install-label{font-size:11px;font-weight:700;color:var(--accent3);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;font-family:'JetBrains Mono',monospace}
+.install-code{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent2);background:rgba(0,206,201,0.05);padding:12px 18px;border-radius:8px;border:1px solid rgba(0,206,201,0.15);word-break:break-all;line-height:1.6}
+.install-note{font-size:12px;color:var(--text-muted);margin-top:10px}
+
+/* ── Capabilities grid ── */
+.section{max-width:1200px;margin:0 auto;padding:0 32px 60px}
+.section-heading{text-align:center;margin-bottom:48px}
+.section-heading h2{font-size:2rem;font-weight:900;margin-bottom:12px}
+.section-heading h2 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.section-heading p{color:var(--text-dim);font-size:1rem}
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.cap-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color .2s,transform .2s}
+.cap-card:hover{border-color:rgba(108,92,231,0.3);transform:translateY(-3px)}
+.cap-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+.icon-scout{background:rgba(108,92,231,0.15)}
+.icon-reader{background:rgba(0,206,201,0.15)}
+.icon-list{background:rgba(253,121,168,0.15)}
+.icon-taste{background:rgba(255,234,167,0.15)}
+.icon-idea{background:rgba(162,155,254,0.15)}
+.icon-writer{background:rgba(108,92,231,0.15)}
+.cap-card h3{font-size:1.05rem;font-weight:700;margin-bottom:4px}
+.cap-card .cap-en{font-size:12px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;margin-bottom:10px}
+.cap-card p{font-size:13px;color:var(--text-dim);line-height:1.7}
+.cap-trigger{display:inline-block;margin-top:12px;padding:3px 10px;border-radius:6px;font-size:11px;font-family:'JetBrains Mono',monospace;background:rgba(0,206,201,0.08);color:var(--accent2);border:1px solid rgba(0,206,201,0.15)}
+
+/* ── Showcase section ── */
+.showcase-label{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:3px;font-family:'JetBrains Mono',monospace;margin-bottom:8px;text-align:center}
+.showcase-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(108,92,231,0.3),transparent);margin-bottom:32px}
+.show-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:16px}
+.show-card{display:block;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:22px;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
+.show-card:hover{border-color:rgba(108,92,231,0.3);transform:translateY(-3px);text-decoration:none}
+.show-icon{font-size:28px;margin-bottom:10px}
+.show-card h3{font-size:14px;font-weight:700;margin-bottom:6px}
+.show-card p{font-size:12px;color:var(--text-dim);line-height:1.6}
+.show-tag{display:inline-block;margin-top:10px;padding:3px 10px;border-radius:8px;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace}
+.tag-case{background:rgba(0,206,201,0.1);color:var(--accent2);border:1px solid rgba(0,206,201,0.2)}
+.tag-demo{background:rgba(162,155,254,0.1);color:var(--accent4);border:1px solid rgba(162,155,254,0.2)}
+
+/* ── Comparison table ── */
+.compare-wrap{overflow-x:auto;margin-top:20px}
+.compare-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
+.compare-table th,.compare-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border)}
+.compare-table th{background:var(--bg-card);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;position:sticky;top:0}
+.compare-table th:first-child{border-radius:10px 0 0 0}
+.compare-table th:last-child{border-radius:0 10px 0 0}
+.compare-table td:first-child{font-weight:600;color:var(--text)}
+.compare-table .yes{color:var(--accent2)}
+.compare-table .no{color:var(--text-muted)}
+.compare-table .partial{color:var(--accent5)}
+.compare-table tr:hover td{background:rgba(108,92,231,0.03)}
+
+/* ── Footer ── */
+.site-footer{max-width:1200px;margin:0 auto;padding:40px 32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;flex-wrap:wrap;gap:16px}
+.footer-brand{font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+@media(max-width:900px){
+  .cap-grid{grid-template-columns:1fr}
+  .hero h1{font-size:2.2rem}
+  .nav-links{display:none}
+}
+</style>
 </head>
 <body>
-    <h1>🐾 ResearchClaws</h1>
-    <p class="subtitle">AI Research Assistant — Showcase Cases</p>
-    <div class="cases">
-        <a href="showcase/case1-daily-signal-brief.html" class="case-card">
-            <div class="num">01</div>
-            <h2>每日全球信号简报</h2>
-            <p>Cron 触发 → 多源聚合 → 7 步 pipeline → 高信噪比行动简报，支持自我迭代。</p>
-            <span class="tag tag-ready">✅ Ready</span>
-        </a>
-        <a href="showcase/case2-paper-reading-notes.html" class="case-card">
-            <div class="num">02</div>
-            <h2>自动化论文阅读与笔记管理</h2>
-            <p>DNL 结构化笔记 → Reading List 同步 → Obsidian Vault → Git 自动提交，知识管理全自动。</p>
-            <span class="tag tag-ready">✅ Ready</span>
-        </a>
-        <a href="showcase/case3-research-proposal.html" class="case-card">
-            <div class="num">03</div>
-            <h2>从文献调研到研究提案</h2>
-            <p>论文搜索 → 深度阅读 → Gap 分析 → 提案生成，一晚上从零到研究提案。</p>
-            <span class="tag tag-ready">✅ Ready</span>
-        </a>
-        <a href="showcase/case4-multi-agent-codebase.html" class="case-card">
-            <div class="num">04</div>
-            <h2>多 Agent 协同代码实现</h2>
-            <p>ClawTeam 多 Agent 并行编码：任务拆分 → 3 Workers 并行 → 代码审查 → PR 合并。</p>
-            <span class="tag tag-ready">✅ Ready</span>
-        </a>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">🦞 ResearchClaws</a>
+    <div class="nav-links">
+      <a href="#capabilities">能力</a>
+      <a href="#showcase">演示</a>
+      <a href="#install">安装</a>
+      <a href="#compare">对比</a>
+      <a href="https://github.com/syr-cn/ResearchClaws" class="nav-gh" target="_blank">⭐ GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">🦞 v2.0 · 6 Core Capabilities · Zero API Keys</div>
+  <h1><span class="grad">ResearchClaws</span><br>你的 AI 全能论文助手</h1>
+  <p class="hero-sub">
+    从<strong>论文发现</strong>到<strong>深度阅读</strong>，从<strong>知识管理</strong>到<strong>灵感生成</strong>，从<strong>论文写作</strong>到<strong>审稿回复</strong>——<br>
+    6 大核心能力，零第三方 API Key，一句话安装，开箱即用。
+  </p>
+  <div class="hero-actions">
+    <a href="#install" class="btn btn-primary">🚀 一句话安装</a>
+    <a href="#showcase" class="btn btn-secondary">🎬 在线演示</a>
+  </div>
+</section>
+
+<!-- Install -->
+<div id="install" class="install-banner">
+  <div class="install-label">⚡ 一句话安装 — 发给你的 OpenClaw 代理</div>
+  <div class="install-code">帮我安装 ResearchClaws：https://raw.githubusercontent.com/syr-cn/ResearchClaws/main/docs/install.md</div>
+  <div class="install-note">没有 OpenClaw？先访问 <a href="https://openclaw.ai" target="_blank">openclaw.ai</a> 安装，再运行上面这句话。</div>
+</div>
+
+<!-- Capabilities -->
+<section id="capabilities" class="section">
+  <div class="section-heading">
+    <h2><span class="grad">6 大核心能力</span></h2>
+    <p>覆盖科研全流程：发现 → 阅读 → 管理 → 画像 → 灵感 → 写作</p>
+  </div>
+  <div class="cap-grid">
+
+    <div class="cap-card">
+      <div class="cap-icon icon-scout">📡</div>
+      <h3>论文雷达</h3>
+      <div class="cap-en">Paper Scout</div>
+      <p>每天自动从 arXiv 发现最新论文，按你的研究画像智能排序推送 Top 5–10，并从你的反馈中持续学习。</p>
+      <span class="cap-trigger">推荐今日论文</span>
     </div>
 
-    <div class="section-label">🎨 Output Previews</div>
-    <div class="section-divider"></div>
-    <div class="cases">
-        <a href="showcase/demo-paper-note.html" class="case-card">
-            <div class="num" style="font-size:2rem;">📄</div>
-            <h2>论文阅读笔记 Demo</h2>
-            <p>AutoRefine (NeurIPS 2025) 完整阅读笔记：动机、方法、实验结果、局限性、核心洞察。</p>
-            <span class="tag tag-demo">🎨 Live Demo</span>
-        </a>
-        <a href="showcase/demo-reading-list.html" class="case-card">
-            <div class="num" style="font-size:2rem;">📚</div>
-            <h2>阅读列表看板 Demo</h2>
-            <p>Kanban 式阅读进度管理：To Read / Reading / Done 三列，含统计数据与分类标签。</p>
-            <span class="tag tag-demo">🎨 Live Demo</span>
-        </a>
-        <a href="showcase/demo-research-profile.html" class="case-card">
-            <div class="num" style="font-size:2rem;">🧠</div>
-            <h2>研究画像 Demo</h2>
-            <p>研究者兴趣关键词云、种子论文、关注作者、主题分布与偏好过滤规则。</p>
-            <span class="tag tag-demo">🎨 Live Demo</span>
-        </a>
+    <div class="cap-card">
+      <div class="cap-icon icon-reader">📝</div>
+      <h3>深度速读</h3>
+      <div class="cap-en">Paper Reader</div>
+      <p>发一个 arXiv 链接，AI 读完 PDF，生成结构化笔记（动机 · 方法 · 实验 · 局限 · 要点），并保存为精美 HTML 页面。</p>
+      <span class="cap-trigger">帮我读一下 [链接]</span>
     </div>
-    <footer>
-        <p>Built with 🐱 by <a href="https://github.com/syr-cn">@syr-cn</a> &amp; Octivia</p>
-    </footer>
+
+    <div class="cap-card">
+      <div class="cap-icon icon-list">📋</div>
+      <h3>论文列表</h3>
+      <div class="cap-en">Reading List</div>
+      <p>Kanban 式管理待读/在读/已读，一键生成 HTML 看板。每篇论文都链接到对应的 HTML 阅读笔记。</p>
+      <span class="cap-trigger">我的论文列表</span>
+    </div>
+
+    <div class="cap-card">
+      <div class="cap-icon icon-taste">🧠</div>
+      <h3>研究画像</h3>
+      <div class="cap-en">Taste Profile</div>
+      <p>显式维护你的研究方向、种子论文、关注作者和关键词。所有推荐和评分都基于你的个性化画像。</p>
+      <span class="cap-trigger">我的研究画像</span>
+    </div>
+
+    <div class="cap-card">
+      <div class="cap-icon icon-idea">💡</div>
+      <h3>灵感生成器</h3>
+      <div class="cap-en">Idea Generator</div>
+      <p>分析你已读的论文，发现跨论文连接和研究空白，生成 3–5 个带可行性评估的研究灵感提案。</p>
+      <span class="cap-trigger">给我一些研究灵感</span>
+    </div>
+
+    <div class="cap-card">
+      <div class="cap-icon icon-writer">📄</div>
+      <h3>论文写作</h3>
+      <div class="cap-en">Paper Writer</div>
+      <p>大纲生成、逐章起草、自我审稿、Reviewer 回复——覆盖从 idea 到 rebuttal 的论文写作全流程。</p>
+      <span class="cap-trigger">论文大纲 / rebuttal</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- Showcase -->
+<section id="showcase" class="section">
+  <div class="section-heading">
+    <h2><span class="grad">在线演示</span></h2>
+    <p>点击查看真实场景下的交互 Case 和产出预览</p>
+  </div>
+
+  <div class="showcase-label">📋 Case Studies — 交互流程展示</div>
+  <div class="showcase-divider"></div>
+  <div class="show-grid">
+    <a href="showcase/case1-daily-signal-brief.html" class="show-card">
+      <div class="show-icon">📡</div>
+      <h3>每日全球信号简报</h3>
+      <p>Cron 触发 → 多源聚合 → 高信噪比行动简报</p>
+      <span class="show-tag tag-case">Case Study</span>
+    </a>
+    <a href="showcase/case2-paper-reading-notes.html" class="show-card">
+      <div class="show-icon">📝</div>
+      <h3>自动化论文阅读与笔记</h3>
+      <p>DNL 结构化笔记 → Reading List 同步 → Git 自动提交</p>
+      <span class="show-tag tag-case">Case Study</span>
+    </a>
+    <a href="showcase/case3-research-proposal.html" class="show-card">
+      <div class="show-icon">🔬</div>
+      <h3>从文献调研到研究提案</h3>
+      <p>论文搜索 → 深度阅读 → Gap 分析 → 提案生成</p>
+      <span class="show-tag tag-case">Case Study</span>
+    </a>
+    <a href="showcase/case4-multi-agent-codebase.html" class="show-card">
+      <div class="show-icon">🤖</div>
+      <h3>多 Agent 协同代码实现</h3>
+      <p>任务拆分 → 3 Workers 并行 → 代码审查 → PR 合并</p>
+      <span class="show-tag tag-case">Case Study</span>
+    </a>
+  </div>
+
+  <div style="height:32px"></div>
+
+  <div class="showcase-label">🎨 Output Previews — 产出预览</div>
+  <div class="showcase-divider"></div>
+  <div class="show-grid">
+    <a href="showcase/demo-paper-note.html" class="show-card">
+      <div class="show-icon">📄</div>
+      <h3>论文阅读笔记</h3>
+      <p>AutoRefine (NeurIPS 2025) — 动机、方法、实验、局限、核心洞察</p>
+      <span class="show-tag tag-demo">Live Demo</span>
+    </a>
+    <a href="showcase/demo-reading-list.html" class="show-card">
+      <div class="show-icon">📚</div>
+      <h3>阅读列表看板</h3>
+      <p>Kanban 三栏看板 — To Read / Reading / Done · 15 篇论文</p>
+      <span class="show-tag tag-demo">Live Demo</span>
+    </a>
+    <a href="showcase/demo-research-profile.html" class="show-card">
+      <div class="show-icon">🧠</div>
+      <h3>研究画像</h3>
+      <p>关键词云 · 种子论文 · 关注作者 · 主题分布 · 偏好规则</p>
+      <span class="show-tag tag-demo">Live Demo</span>
+    </a>
+  </div>
+</section>
+
+<!-- Compare -->
+<section id="compare" class="section">
+  <div class="section-heading">
+    <h2><span class="grad">与同类工具比较</span></h2>
+    <p>灵感来自 PaperClaw 和 ARIS，但更轻量、更集成</p>
+  </div>
+  <div class="compare-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>特性</th>
+          <th>ResearchClaws</th>
+          <th>PaperClaw</th>
+          <th>ARIS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>零 API Key</td><td class="yes">✅ 完全免费</td><td class="no">需要配置</td><td class="no">需要多个 Key</td></tr>
+        <tr><td>一句话安装</td><td class="yes">✅</td><td class="no">手动配置</td><td class="no">手动配置</td></tr>
+        <tr><td>深度阅读笔记</td><td class="yes">✅ HTML 页面</td><td class="yes">✅ Markdown</td><td class="yes">✅ Markdown</td></tr>
+        <tr><td>论文列表管理</td><td class="yes">✅ HTML 看板</td><td class="no">❌</td><td class="no">❌</td></tr>
+        <tr><td>研究画像个性化</td><td class="yes">✅ 自动学习</td><td class="partial">部分</td><td class="no">❌</td></tr>
+        <tr><td>灵感生成</td><td class="yes">✅</td><td class="no">❌</td><td class="partial">部分</td></tr>
+        <tr><td>论文写作辅助</td><td class="yes">✅ 含 Rebuttal</td><td class="no">❌</td><td class="yes">✅ 含实验执行</td></tr>
+        <tr><td>OpenClaw 原生</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">Claude Code 原生</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <span>Built with ❤️ by <a href="https://github.com/syr-cn" target="_blank" style="color:var(--accent)">@syr-cn</a> &amp; <span class="footer-brand">Octivia 🐱</span></span>
+  <span>Powered by <a href="https://openclaw.ai" target="_blank" style="color:var(--accent2)">OpenClaw</a> · MIT License</span>
+</footer>
+
 </body>
 </html>
