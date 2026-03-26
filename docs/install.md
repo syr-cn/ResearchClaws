@@ -5,7 +5,7 @@
 Send this message to your OpenClaw agent:
 
 ```
-帮我安装 ResearchClaw：https://raw.githubusercontent.com/syr-cn/ResearchClaws/main/docs/install.md
+帮我安装 ResearchClaw：https://raw.githubusercontent.com/syr-cn/ResearchClaw/main/docs/install.md
 ```
 
 That's it. The agent will:
@@ -21,7 +21,7 @@ If you want full control:
 
 ```bash
 # 1. Clone the skill
-git clone https://github.com/syr-cn/ResearchClaws ~/.openclaw/skills/research-claw
+git clone https://github.com/syr-cn/ResearchClaw ~/.openclaw/skills/research-claw
 
 # 2. Register with OpenClaw
 # Tell your agent: "register skill at ~/.openclaw/skills/research-claw"

@@ -7,10 +7,10 @@
 *由 [OpenClaw](https://openclaw.ai) 驱动 · Powered by OpenClaw*
 
 [![OpenClaw Skill](https://img.shields.io/badge/OpenClaw-Skill-blue?style=flat-square)](https://openclaw.ai)
-[![Version](https://img.shields.io/badge/version-2.0.0-brightgreen?style=flat-square)](https://github.com/syr-cn/ResearchClaw)
+[![Version](https://img.shields.io/badge/version-2.0.0-brightgreen?style=flat-square)](https://github.com/syr-cn/ResearchClaw
 [![arXiv](https://img.shields.io/badge/arXiv-Free%20API-red?style=flat-square)](https://arxiv.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
-[![Demo](https://img.shields.io/badge/Demo-GitHub%20Pages-green?style=flat-square)](https://syr-cn.github.io/ResearchClaw/)
+[![Demo](https://img.shields.io/badge/Demo-GitHub%20Pages-green?style=flat-square)](https://syr-cn.github.io/ResearchClaw)
 
 <br>
 
@@ -20,7 +20,7 @@
 
 <br>
 
-[🌐 在线演示](https://syr-cn.github.io/ResearchClaw/) · [📖 安装](#一句话安装) · [⚙️ 配置](docs/config.md) · [🐛 Issues](https://github.com/syr-cn/ResearchClaw/issues)
+[🌐 在线演示](https://syr-cn.github.io/ResearchClaw) · [📖 安装](#一句话安装) · [⚙️ 配置](docs/config.md) · [🐛 Issues](https://github.com/syr-cn/RResearchClawssues)
 
 </div>
 
@@ -43,7 +43,7 @@
 - ⏰ 支持每日定时推送
 
 **触发：** `推荐今日论文`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/case1-daily-signal-brief.html)
+[▶ 查看演示](https://syr-cn.github.io/ResearchClawshowcase/case1-daily-signal-brief.html)
 
 </td>
 <td width="33%" valign="top">
@@ -59,7 +59,7 @@
 - 🇨🇳 中英双语友好
 
 **触发：** arXiv 链接 / `帮我读一下`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/demo-paper-note.html)
+[▶ 查看演示](https://syr-cn.github.io/ResearchClawshowcase/demo-paper-note.html)
 
 </td>
 <td width="33%" valign="top">
@@ -75,7 +75,7 @@
 - 🔗 每篇都链接到 HTML 笔记
 
 **触发：** `我的论文列表` / `加入待读`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/demo-reading-list.html)
+[▶ 查看演示](https://syr-cn.github.io/ResearchClawshowcase/demo-reading-list.html)
 
 </td>
 </tr>
@@ -93,7 +93,7 @@
 - 🔄 从对话反馈自动更新
 
 **触发：** `我的研究画像` / `更新我的研究画像`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/demo-research-profile.html)
+[▶ 查看演示](https://syr-cn.github.io/ResearchClawshowcase/demo-research-profile.html)
 
 </td>
 <td width="33%" valign="top">
@@ -109,7 +109,7 @@
 - ⭐ 时机分析
 
 **触发：** `给我一些研究灵感`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/case3-research-proposal.html)
+[▶ 查看演示](https://syr-cn.github.io/ResearchClawshowcase/case3-research-proposal.html)
 
 </td>
 <td width="33%" valign="top">
@@ -125,7 +125,7 @@
 - 💬 Reviewer 回复起草
 
 **触发：** `论文大纲` / `写引言` / `rebuttal`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/case4-multi-agent-codebase.html)
+[▶ 查看演示](https://syr-cn.github.io/ResearchClawshowcase/case4-multi-agent-codebase.html)
 
 </td>
 </tr>
@@ -138,7 +138,7 @@
 把这句话发给你的 OpenClaw 代理：
 
 ```
-帮我安装 ResearchClaw：https://raw.githubusercontent.com/syr-cn/ResearchClaw/main/docs/install.md
+帮我安装 ResearchClaw：https://raw.githubusercontent.com/syr-cn/ResearchClawmain/docs/install.md
 ```
 
 > **就这一句话。** 代理会自动下载、注册技能，无需任何手动操作。
@@ -250,14 +250,14 @@ rebuttal
 
 ## 🎬 在线演示 | Live Showcase
 
-访问 [syr-cn.github.io/ResearchClaw](https://syr-cn.github.io/ResearchClaw/) 查看完整演示：
+访问 [syr-cn.github.io/ResearchClaw(https://syr-cn.github.io/RResearchClaw 查看完整演示：
 
 | 案例 | 描述 |
 |------|------|
-| [每日信号简报](https://syr-cn.github.io/ResearchClaw/showcase/case1-daily-signal-brief.html) | Paper Scout 多源聚合推送示例 |
-| [论文阅读笔记](https://syr-cn.github.io/ResearchClaw/showcase/case2-paper-reading-notes.html) | Paper Reader HTML 笔记示例 |
-| [研究方向分析](https://syr-cn.github.io/ResearchClaw/showcase/case3-research-proposal.html) | Idea Generator 灵感生成示例 |
-| [多智能体协作](https://syr-cn.github.io/ResearchClaw/showcase/case4-multi-agent-codebase.html) | Paper Writer 写作辅助示例 |
+| [每日信号简报](https://syr-cn.github.io/ResearchClawshowcase/case1-daily-signal-brief.html) | Paper Scout 多源聚合推送示例 |
+| [论文阅读笔记](https://syr-cn.github.io/ResearchClawshowcase/case2-paper-reading-notes.html) | Paper Reader HTML 笔记示例 |
+| [研究方向分析](https://syr-cn.github.io/ResearchClawshowcase/case3-research-proposal.html) | Idea Generator 灵感生成示例 |
+| [多智能体协作](https://syr-cn.github.io/ResearchClawshowcase/case4-multi-agent-codebase.html) | Paper Writer 写作辅助示例 |
 
 ---
 
@@ -342,7 +342,7 @@ whitelist_authors:
 
 **Install** (one line — send to your OpenClaw agent):
 ```
-帮我安装 ResearchClaw：https://raw.githubusercontent.com/syr-cn/ResearchClaw/main/docs/install.md
+帮我安装 ResearchClaw：https://raw.githubusercontent.com/syr-cn/ResearchClawmain/docs/install.md
 ```
 
 **6 capabilities at a glance:**
@@ -366,6 +366,6 @@ Zero third-party dependencies.
 
 <div align="center">
 
-Made with ❤️ for researchers · MIT License · [syr-cn.github.io/ResearchClaw](https://syr-cn.github.io/ResearchClaw/)
+Made with ❤️ for researchers · MIT License · [syr-cn.github.io/ResearchClaw(https://syr-cn.github.io/RResearchClaw
 
 </div>

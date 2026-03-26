@@ -5,12 +5,12 @@ description: >
   reading list management, research taste learning, idea generation, and paper writing.
   Trigger words: 论文推荐, paper recommendation, arXiv, 读论文, paper notes, DNL,
   推荐今日论文, 每日论文, 帮我读一下, paper scout, 论文速读, 帮我安装 ResearchClaw,
-  research claws, researchclaws, 加入待读, 我的论文列表, reading list, 标记已读,
+  research claws, ResearchClaw, 加入待读, 我的论文列表, reading list, 标记已读,
   更新我的研究画像, 我的研究画像, research profile, 给我一些研究灵感, idea generator,
   跨论文分析, 帮我写论文, paper writing, 论文大纲, 写引言, rebuttal.
 metadata:
   openclaw:
-    homepage: https://github.com/syr-cn/ResearchClaws
+    homepage: https://github.com/syr-cn/ResearchClaw
     version: "2.0.0"
     author: syr-cn
 ---
@@ -830,12 +830,12 @@ The user can override the output directory by setting `output_dir` in their conf
 
 This skill was installed from:
 ```
-https://raw.githubusercontent.com/syr-cn/ResearchClaws/main/docs/install.md
+https://raw.githubusercontent.com/syr-cn/ResearchClaw/main/docs/install.md
 ```
 
 To install, tell your OpenClaw agent:
 ```
-帮我安装 ResearchClaw：https://raw.githubusercontent.com/syr-cn/ResearchClaws/main/docs/install.md
+帮我安装 ResearchClaw：https://raw.githubusercontent.com/syr-cn/ResearchClaw/main/docs/install.md
 ```
 
 ---
