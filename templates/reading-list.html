@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading List Dashboard | ResearchClaws</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ResearchClaws Reading List Dashboard Template v2.0
+   Dark theme · 1920×1080 optimized · Responsive
+   Fill in {{PLACEHOLDERS}} when generating or updating
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:         #0f1117;
+  --bg-card:    #1a1d27;
+  --bg-header:  #141620;
+  --accent:     #6c5ce7;
+  --accent2:    #00cec9;
+  --accent3:    #fd79a8;
+  --accent4:    #a29bfe;
+  --accent5:    #ffeaa7;
+  --text:       #e2e8f0;
+  --text-dim:   #8892a8;
+  --text-muted: #4a5568;
+  --border:     rgba(255,255,255,0.06);
+}
+
+html { background: var(--bg); }
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ── Page layout ── */
+.page-wrap { max-width: 1400px; margin: 0 auto; padding: 0 32px 80px; }
+
+/* ── Top bar ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+}
+.logo {
+  font-size: 22px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.topbar-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ── Stats bar ── */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: border-color 0.2s;
+}
+.stat-card:hover { border-color: rgba(108,92,231,0.25); }
+.stat-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.icon-total    { background: rgba(108,92,231,0.15); }
+.icon-toread   { background: rgba(253,121,168,0.15); }
+.icon-reading  { background: rgba(255,234,167,0.15); }
+.icon-done     { background: rgba(0,206,201,0.15); }
+.icon-week     { background: rgba(162,155,254,0.15); }
+.stat-info {}
+.stat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.val-purple { color: var(--accent4); }
+.val-pink   { color: var(--accent3); }
+.val-yellow { color: var(--accent5); }
+.val-cyan   { color: var(--accent2); }
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ── Search bar ── */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.search-input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 13px;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+}
+.search-placeholder { color: var(--text-muted); }
+.filter-chips {
+  display: flex;
+  gap: 8px;
+}
+.filter-chip {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid;
+  cursor: pointer;
+}
+.chip-all      { color: var(--text-dim);  border-color: var(--border);               background: var(--bg-card); }
+.chip-active   { color: var(--accent4);   border-color: rgba(162,155,254,0.35);       background: rgba(162,155,254,0.08); }
+
+/* ── Kanban columns ── */
+.kanban {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.column {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.col-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.col-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.dot-toread  { background: var(--accent3); box-shadow: 0 0 8px rgba(253,121,168,0.4); }
+.dot-reading { background: var(--accent5); box-shadow: 0 0 8px rgba(255,234,167,0.4); }
+.dot-done    { background: var(--accent2); box-shadow: 0 0 8px rgba(0,206,201,0.4); }
+
+.col-name {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.name-toread  { color: var(--accent3); }
+.name-reading { color: var(--accent5); }
+.name-done    { color: var(--accent2); }
+
+.col-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.column-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Paper cards ── */
+.paper-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  transition: border-color 0.15s, background 0.15s;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+.paper-card:hover {
+  border-color: rgba(108,92,231,0.25);
+  background: rgba(108,92,231,0.04);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.paper-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text);
+  flex: 1;
+}
+.card-score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+.score-high { color: var(--accent2); background: rgba(0,206,201,0.1); border: 1px solid rgba(0,206,201,0.2); }
+.score-mid  { color: var(--accent4); background: rgba(162,155,254,0.1); border: 1px solid rgba(162,155,254,0.2); }
+.score-low  { color: var(--text-muted); background: rgba(255,255,255,0.04); border: 1px solid var(--border); }
+
+.card-authors {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.card-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid;
+  font-weight: 500;
+}
+.tag-cyan   { color: var(--accent2); border-color: rgba(0,206,201,0.2);   background: rgba(0,206,201,0.06); }
+.tag-purple { color: var(--accent4); border-color: rgba(162,155,254,0.2); background: rgba(162,155,254,0.06); }
+.tag-pink   { color: var(--accent3); border-color: rgba(253,121,168,0.2); background: rgba(253,121,168,0.06); }
+.tag-yellow { color: var(--accent5); border-color: rgba(255,234,167,0.2); background: rgba(255,234,167,0.06); }
+
+.card-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+/* ── Note link badge ── */
+.note-link-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--accent);
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.empty-icon { font-size: 32px; margin-bottom: 8px; }
+
+/* ── Footer ── */
+.reading-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+.footer-brand {
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .kanban { grid-template-columns: 1fr; }
+  .stats-bar { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- Top bar -->
+  <nav class="topbar">
+    <span class="logo">🦞 ResearchClaws</span>
+    <div class="topbar-right">
+      <span class="topbar-date">Updated: {{LAST_UPDATED}}</span>
+    </div>
+  </nav>
+
+  <!-- Stats bar -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-icon icon-total">📚</div>
+      <div class="stat-info">
+        <div class="stat-val val-purple">{{TOTAL_PAPERS}}</div>
+        <div class="stat-label">Total Papers</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon icon-toread">📥</div>
+      <div class="stat-info">
+        <div class="stat-val val-pink">{{TOREAD_COUNT}}</div>
+        <div class="stat-label">To Read</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon icon-reading">📖</div>
+      <div class="stat-info">
+        <div class="stat-val val-yellow">{{READING_COUNT}}</div>
+        <div class="stat-label">Reading</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon icon-done">✅</div>
+      <div class="stat-info">
+        <div class="stat-val val-cyan">{{DONE_COUNT}}</div>
+        <div class="stat-label">Done</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon icon-week">🔥</div>
+      <div class="stat-info">
+        <div class="stat-val val-purple">{{WEEK_COUNT}}</div>
+        <div class="stat-label">Read This Week</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search / filter bar (decorative) -->
+  <div class="search-bar">
+    <div class="search-input-wrap">
+      <span>🔍</span>
+      <span class="search-placeholder">Search papers by title, author, or topic…</span>
+    </div>
+    <div class="filter-chips">
+      <span class="filter-chip chip-active">All</span>
+      <span class="filter-chip chip-all">LLM</span>
+      <span class="filter-chip chip-all">RL</span>
+      <span class="filter-chip chip-all">Memory</span>
+      <span class="filter-chip chip-all">Multimodal</span>
+    </div>
+  </div>
+
+  <!-- Kanban board -->
+  <div class="kanban">
+
+    <!-- To Read column -->
+    <div class="column">
+      <div class="column-header">
+        <div class="col-title-row">
+          <div class="col-dot dot-toread"></div>
+          <span class="col-name name-toread">To Read</span>
+        </div>
+        <span class="col-count">{{TOREAD_COUNT}} papers</span>
+      </div>
+      <div class="column-body">
+
+        <!-- Agent: duplicate this block for each "To Read" paper -->
+        <!-- TOREAD_PAPERS_START -->
+        <a href="{{NOTE_LINK_1}}" class="paper-card">
+          <div class="card-top">
+            <div class="paper-card-title">{{PAPER_TITLE_1}}</div>
+            <span class="card-score score-high">{{SCORE_1}}/10</span>
+          </div>
+          <div class="card-authors">{{AUTHORS_1}}</div>
+          <div class="card-meta">
+            <span class="card-tag tag-cyan">{{TAG_1A}}</span>
+            <span class="card-tag tag-purple">{{TAG_1B}}</span>
+            <span class="card-date">{{DATE_ADDED_1}}</span>
+          </div>
+          <div class="note-link-badge">📄 View Note →</div>
+        </a>
+
+        <a href="{{NOTE_LINK_2}}" class="paper-card">
+          <div class="card-top">
+            <div class="paper-card-title">{{PAPER_TITLE_2}}</div>
+            <span class="card-score score-mid">{{SCORE_2}}/10</span>
+          </div>
+          <div class="card-authors">{{AUTHORS_2}}</div>
+          <div class="card-meta">
+            <span class="card-tag tag-pink">{{TAG_2A}}</span>
+            <span class="card-date">{{DATE_ADDED_2}}</span>
+          </div>
+        </a>
+        <!-- TOREAD_PAPERS_END -->
+
+      </div>
+    </div>
+
+    <!-- Reading column -->
+    <div class="column">
+      <div class="column-header">
+        <div class="col-title-row">
+          <div class="col-dot dot-reading"></div>
+          <span class="col-name name-reading">Reading</span>
+        </div>
+        <span class="col-count">{{READING_COUNT}} papers</span>
+      </div>
+      <div class="column-body">
+
+        <!-- Agent: duplicate this block for each "Reading" paper -->
+        <!-- READING_PAPERS_START -->
+        <a href="{{NOTE_LINK_R1}}" class="paper-card">
+          <div class="card-top">
+            <div class="paper-card-title">{{PAPER_TITLE_R1}}</div>
+            <span class="card-score score-high">{{SCORE_R1}}/10</span>
+          </div>
+          <div class="card-authors">{{AUTHORS_R1}}</div>
+          <div class="card-meta">
+            <span class="card-tag tag-yellow">{{TAG_R1A}}</span>
+            <span class="card-tag tag-cyan">{{TAG_R1B}}</span>
+            <span class="card-date">{{DATE_R1}}</span>
+          </div>
+          <div class="note-link-badge">📄 View Note →</div>
+        </a>
+        <!-- READING_PAPERS_END -->
+
+        <!-- If empty: -->
+        <!-- <div class="empty-state"><div class="empty-icon">📖</div>No papers in progress</div> -->
+
+      </div>
+    </div>
+
+    <!-- Done column -->
+    <div class="column">
+      <div class="column-header">
+        <div class="col-title-row">
+          <div class="col-dot dot-done"></div>
+          <span class="col-name name-done">Done</span>
+        </div>
+        <span class="col-count">{{DONE_COUNT}} papers</span>
+      </div>
+      <div class="column-body">
+
+        <!-- Agent: duplicate this block for each "Done" paper -->
+        <!-- DONE_PAPERS_START -->
+        <a href="{{NOTE_LINK_D1}}" class="paper-card">
+          <div class="card-top">
+            <div class="paper-card-title">{{PAPER_TITLE_D1}}</div>
+            <span class="card-score score-high">{{SCORE_D1}}/10</span>
+          </div>
+          <div class="card-authors">{{AUTHORS_D1}}</div>
+          <div class="card-meta">
+            <span class="card-tag tag-cyan">{{TAG_D1A}}</span>
+            <span class="card-tag tag-purple">{{TAG_D1B}}</span>
+            <span class="card-date">{{DATE_D1}}</span>
+          </div>
+          <div class="note-link-badge">📄 View Note →</div>
+        </a>
+
+        <a href="{{NOTE_LINK_D2}}" class="paper-card">
+          <div class="card-top">
+            <div class="paper-card-title">{{PAPER_TITLE_D2}}</div>
+            <span class="card-score score-mid">{{SCORE_D2}}/10</span>
+          </div>
+          <div class="card-authors">{{AUTHORS_D2}}</div>
+          <div class="card-meta">
+            <span class="card-tag tag-pink">{{TAG_D2A}}</span>
+            <span class="card-date">{{DATE_D2}}</span>
+          </div>
+          <div class="note-link-badge">📄 View Note →</div>
+        </a>
+        <!-- DONE_PAPERS_END -->
+
+      </div>
+    </div>
+
+  </div><!-- /kanban -->
+
+  <!-- Footer -->
+  <footer class="reading-footer">
+    <span>Powered by <span class="footer-brand">ResearchClaws</span></span>
+    <span>{{TOTAL_PAPERS}} papers tracked · Last updated {{LAST_UPDATED}}</span>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,107 +1,129 @@
-## ResearchClaws 安装指南
+# Install ResearchClaws
 
-**此文档由 OpenClaw 代理读取，用于自动安装技能。**
+## One-line Install
 
----
-
-### 自动安装（推荐）
-
-对你的 OpenClaw 代理说：
+Send this message to your OpenClaw agent:
 
 ```
 帮我安装 ResearchClaws：https://raw.githubusercontent.com/syr-cn/ResearchClaws/main/docs/install.md
 ```
 
-代理将自动执行以下步骤（无需手动操作）：
+That's it. The agent will:
+1. Download this file
+2. Register the skill (`SKILL.md`) with your OpenClaw instance
+3. Confirm installation and all 6 capabilities are ready
 
 ---
 
-### 安装步骤（代理执行）
+## Manual Install (Advanced)
 
-#### Step 1 — 确认 OpenClaw 已安装
+If you want full control:
 
 ```bash
-openclaw --version
+# 1. Clone the skill
+git clone https://github.com/syr-cn/ResearchClaws ~/.openclaw/skills/research-claws
+
+# 2. Register with OpenClaw
+# Tell your agent: "register skill at ~/.openclaw/skills/research-claws"
 ```
 
-如果未安装，请先访问 https://openclaw.ai 安装 OpenClaw。
+---
 
-#### Step 2 — 安装技能文件
+## Set Up Your Research Profile
 
-将 SKILL.md 下载到用户技能目录：
+After installing, set up your research taste profile:
 
 ```bash
-mkdir -p ~/.openclaw/skills/research-claws
-curl -fsSL https://raw.githubusercontent.com/syr-cn/ResearchClaws/main/SKILL.md \
-  -o ~/.openclaw/skills/research-claws/SKILL.md
+# Copy the example profile
+cp ~/.openclaw/skills/research-claws/research-profile-example.md \
+   ~/.openclaw/workspace/research-claws-config.md
 ```
 
-#### Step 3 — 创建默认配置文件
+Edit `~/.openclaw/workspace/research-claws-config.md` with:
+- Your research direction description
+- Seed papers (arXiv IDs you consider gold standards)
+- Keywords for daily discovery
+- Whitelist authors to follow
 
-```bash
-cat > ~/.openclaw/workspace/research-claws-config.md << 'EOF'
-# ResearchClaws 用户配置
-# 编辑此文件来自定义你的论文推荐兴趣
-
-## 研究兴趣（每行一个，用英文写效果更好）
-INTERESTS:
-  - large language models
-  - reinforcement learning
-  - agentic AI
-  - retrieval-augmented generation
-  - multimodal models
-
-## 每日推荐设置
-DAILY_COUNT: 5          # 每次推荐几篇（3-10）
-DAYS_BACK: 3            # 查找最近几天的论文（1-7）
-LANGUAGE: zh            # 摘要语言：zh（中文）或 en（英文）
-EOF
+Or just tell your agent:
 ```
-
-#### Step 4 — 验证安装
-
-安装完成后，测试技能是否正常工作：
-
-```
-推荐今日论文
-```
-
-或者：
-
-```
-帮我读一下这篇：https://arxiv.org/abs/2503.19823
+更新我的研究画像
 ```
 
 ---
 
-### 手动安装
+## File Structure
 
-如果自动安装失败，手动步骤：
-
-1. 下载 SKILL.md：https://raw.githubusercontent.com/syr-cn/ResearchClaws/main/SKILL.md
-2. 保存到 `~/.openclaw/skills/research-claws/SKILL.md`
-3. 重启 OpenClaw 代理
-
----
-
-### 卸载
-
-```bash
-rm -rf ~/.openclaw/skills/research-claws
-rm -f ~/.openclaw/workspace/research-claws-config.md
+```
+ResearchClaws/
+├── SKILL.md                        # Agent instructions (all 6 capabilities)
+├── README.md                       # Project overview
+├── research-profile-example.md     # Profile config template
+├── templates/
+│   ├── paper-note.html             # HTML template for deep reading notes
+│   ├── reading-list.html           # HTML dashboard for reading list
+│   └── research-profile.html       # Visual research taste profile page
+├── docs/
+│   ├── install.md                  # This file
+│   └── config.md                   # Config reference
+├── showcase/                        # Live demo HTML pages
+│   ├── case1-daily-signal-brief.html
+│   ├── case2-paper-reading-notes.html
+│   ├── case3-research-proposal.html
+│   └── case4-multi-agent-codebase.html
+└── index.html                       # GitHub Pages homepage
 ```
 
 ---
 
-### 故障排除
+## Requirements
 
-| 问题 | 解决方法 |
-|------|----------|
-| 代理不识别"推荐今日论文" | 确认 SKILL.md 已在 `~/.openclaw/skills/research-claws/` 目录 |
-| arXiv 无法访问 | 检查网络连接，代理会自动重试 |
-| PDF 分析超时 | 代理会回退到仅分析摘要模式 |
+- **OpenClaw** — https://openclaw.ai
+- **Internet access** — for arXiv API calls and PDF downloads
+- **No paid APIs needed** — uses arXiv free API + OpenClaw's built-in `pdf` and `web_fetch` tools
 
 ---
 
-项目主页：https://github.com/syr-cn/ResearchClaws  
-在线 Demo：https://syr-cn.github.io/ResearchClaws/
+## Quick Start After Install
+
+ResearchClaws v2.0 has **6 core capabilities**:
+
+| # | Say this | Capability | What happens |
+|---|----------|------------|--------------|
+| 📡 | `推荐今日论文` | Paper Scout | Fetches today's arXiv papers ranked by your profile |
+| 📝 | `帮我读一下 [arXiv link]` | Paper Reader | Deep reads PDF → chat summary + saved HTML note |
+| 📋 | `加入待读 [link]` | Reading List | Adds paper to your reading list |
+| 📋 | `我的论文列表` | Reading List | Shows and regenerates HTML reading dashboard |
+| 📋 | `标记已读 [paper]` | Reading List | Moves paper to Done status |
+| 🧠 | `更新我的研究画像` | Research Profile | Updates config + regenerates visual HTML profile |
+| 🧠 | `我的研究画像` | Research Profile | Shows current research taste profile |
+| 💡 | `给我一些研究灵感` | Idea Generator | Cross-paper analysis → 3–5 research ideas |
+| 📄 | `论文大纲 [idea]` | Paper Writer | Generates structured paper outline |
+| 📄 | `写引言` / `写方法` | Paper Writer | Drafts specific paper sections |
+| 📄 | `审稿` / `找论文的弱点` | Paper Writer | Auto-reviews your draft |
+| 📄 | `rebuttal [comments]` | Paper Writer | Drafts point-by-point reviewer responses |
+
+---
+
+## Output Files
+
+All generated HTML files are saved to:
+```
+~/.openclaw/workspace/research-claws-output/
+```
+
+| File | Description |
+|------|-------------|
+| `{ARXIV_ID}.html` | Deep reading note for a specific paper |
+| `reading-list.html` | Your reading list HTML dashboard |
+| `research-profile.html` | Your visual research taste profile |
+
+---
+
+## Uninstall
+
+```
+Tell your agent: "卸载 ResearchClaws skill"
+```
+
+Or manually delete `~/.openclaw/skills/research-claws/`.

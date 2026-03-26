@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Taste Profile | ResearchClaws</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ResearchClaws Research Profile Template v2.0
+   Dark theme · Demo page · Visual keyword cloud + stats
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:         #0f1117;
+  --bg-card:    #1a1d27;
+  --accent:     #6c5ce7;
+  --accent2:    #00cec9;
+  --accent3:    #fd79a8;
+  --accent4:    #a29bfe;
+  --accent5:    #ffeaa7;
+  --text:       #e2e8f0;
+  --text-dim:   #8892a8;
+  --text-muted: #4a5568;
+  --border:     rgba(255,255,255,0.06);
+}
+
+html { background: var(--bg); }
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+.page-wrap { max-width: 1300px; margin: 0 auto; padding: 0 32px 80px; }
+
+/* ── Top bar ── */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 0 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+.logo {
+  font-size: 22px; font-weight: 900;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.profile-badge {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 16px;
+  background: rgba(108,92,231,0.1);
+  border: 1px solid rgba(108,92,231,0.25);
+  border-radius: 20px;
+  font-size: 12px; font-weight: 600; color: var(--accent4);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Profile hero ── */
+.profile-hero {
+  background: linear-gradient(135deg, rgba(108,92,231,0.08), rgba(0,206,201,0.05));
+  border: 1px solid rgba(108,92,231,0.2);
+  border-radius: 20px;
+  padding: 40px 48px;
+  margin-bottom: 36px;
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.profile-hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(108,92,231,0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.profile-avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 44px;
+  flex-shrink: 0;
+  border: 3px solid rgba(162,155,254,0.3);
+}
+
+.profile-info { flex: 1; }
+.profile-name {
+  font-size: 28px; font-weight: 900; margin-bottom: 6px;
+  background: linear-gradient(90deg, var(--text), var(--accent4));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.profile-title { font-size: 14px; color: var(--text-dim); margin-bottom: 16px; }
+.profile-direction {
+  font-size: 15px; color: var(--text); line-height: 1.7;
+  background: rgba(255,255,255,0.03);
+  border-left: 3px solid var(--accent);
+  padding: 12px 18px;
+  border-radius: 0 10px 10px 0;
+}
+
+.profile-stats-mini {
+  display: flex; flex-direction: column; gap: 12px;
+  min-width: 180px;
+  flex-shrink: 0;
+}
+.mini-stat {
+  display: flex; flex-direction: column;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 18px;
+  text-align: center;
+}
+.mini-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px; font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.mini-label { font-size: 11px; color: var(--text-muted); }
+.mv-purple { color: var(--accent4); }
+.mv-cyan   { color: var(--accent2); }
+.mv-pink   { color: var(--accent3); }
+
+/* ── Main grid ── */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* ── Section card ── */
+.section-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+.section-card.full { grid-column: 1 / -1; }
+
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 20px; padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.section-title {
+  font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.title-keywords  { color: var(--accent4); }
+.title-seeds     { color: var(--accent2); }
+.title-authors   { color: var(--accent3); }
+.title-activity  { color: var(--accent5); }
+
+/* ── Keyword cloud ── */
+.keyword-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.kw-chip {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  border: 1px solid;
+  cursor: default;
+  transition: transform 0.15s;
+}
+.kw-chip:hover { transform: scale(1.05); }
+/* size variants — agent assigns based on weight */
+.kw-lg  { font-size: 16px; }
+.kw-md  { font-size: 14px; }
+.kw-sm  { font-size: 12px; }
+.kw-xs  { font-size: 11px; opacity: 0.8; }
+
+.kw-purple { color: var(--accent4); border-color: rgba(162,155,254,0.3); background: rgba(162,155,254,0.08); }
+.kw-cyan   { color: var(--accent2); border-color: rgba(0,206,201,0.3);   background: rgba(0,206,201,0.08); }
+.kw-pink   { color: var(--accent3); border-color: rgba(253,121,168,0.3); background: rgba(253,121,168,0.08); }
+.kw-yellow { color: var(--accent5); border-color: rgba(255,234,167,0.3); background: rgba(255,234,167,0.08); }
+.kw-accent { color: #fff;          border-color: rgba(108,92,231,0.5);  background: rgba(108,92,231,0.2); }
+
+/* ── Seed papers ── */
+.seed-list { display: flex; flex-direction: column; gap: 10px; }
+.seed-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: rgba(0,206,201,0.04);
+  border: 1px solid rgba(0,206,201,0.1);
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: border-color 0.15s;
+  text-decoration: none; color: inherit;
+}
+.seed-item:hover { border-color: rgba(0,206,201,0.25); }
+.seed-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+.seed-info {}
+.seed-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.seed-id { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent2); }
+
+/* ── Whitelist authors ── */
+.author-chips {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.author-chip {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(253,121,168,0.07);
+  border: 1px solid rgba(253,121,168,0.2);
+  color: var(--accent3);
+}
+
+/* ── Activity bar ── */
+.activity-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.activity-row {
+  display: flex; align-items: center; gap: 14px;
+}
+.act-label { font-size: 12px; color: var(--text-dim); min-width: 140px; flex-shrink: 0; }
+.act-bar-wrap { flex: 1; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
+.act-bar { height: 100%; border-radius: 4px; transition: width 0.3s; }
+.bar-purple { background: linear-gradient(90deg, var(--accent), var(--accent4)); }
+.bar-cyan   { background: linear-gradient(90deg, var(--accent2), #55efc4); }
+.bar-pink   { background: linear-gradient(90deg, var(--accent3), #fab1d3); }
+.bar-yellow { background: linear-gradient(90deg, var(--accent5), #fdcb6e); }
+.act-val { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); min-width: 40px; text-align: right; }
+
+/* ── Learned preferences ── */
+.pref-section { margin-top: 0; }
+.pref-title { font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 10px; }
+.pref-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.pref-accept { font-size: 11px; padding: 3px 10px; border-radius: 6px; color: var(--accent2); background: rgba(0,206,201,0.06); border: 1px solid rgba(0,206,201,0.18); }
+.pref-reject { font-size: 11px; padding: 3px 10px; border-radius: 6px; color: var(--accent3); background: rgba(253,121,168,0.06); border: 1px solid rgba(253,121,168,0.18); }
+
+/* ── Footer ── */
+.profile-footer {
+  margin-top: 36px; padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+.footer-brand {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .main-grid { grid-template-columns: 1fr; }
+  .profile-hero { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- Top bar -->
+  <nav class="topbar">
+    <span class="logo">🦞 ResearchClaws</span>
+    <div class="profile-badge">🧠 Research Taste Profile</div>
+  </nav>
+
+  <!-- Profile hero -->
+  <div class="profile-hero">
+    <div class="profile-avatar">🧑‍🔬</div>
+    <div class="profile-info">
+      <div class="profile-name">{{USER_NAME}}</div>
+      <div class="profile-title">{{USER_TITLE}}</div>
+      <div class="profile-direction">
+        {{RESEARCH_DIRECTION}}
+      </div>
+    </div>
+    <div class="profile-stats-mini">
+      <div class="mini-stat">
+        <div class="mini-val mv-purple">{{TOTAL_PAPERS}}</div>
+        <div class="mini-label">Papers tracked</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-val mv-cyan">{{SEED_COUNT}}</div>
+        <div class="mini-label">Seed papers</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-val mv-pink">{{KEYWORD_COUNT}}</div>
+        <div class="mini-label">Keywords</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main grid -->
+  <div class="main-grid">
+
+    <!-- Keyword cloud -->
+    <div class="section-card">
+      <div class="section-header">
+        <span>🏷️</span>
+        <span class="section-title title-keywords">Interest Keywords</span>
+      </div>
+      <!-- Agent: assign kw-lg/md/sm/xs and kw-purple/cyan/pink/yellow/accent based on importance -->
+      <div class="keyword-cloud">
+        <span class="kw-chip kw-lg kw-accent">{{KW_1}}</span>
+        <span class="kw-chip kw-lg kw-purple">{{KW_2}}</span>
+        <span class="kw-chip kw-md kw-cyan">{{KW_3}}</span>
+        <span class="kw-chip kw-md kw-pink">{{KW_4}}</span>
+        <span class="kw-chip kw-md kw-yellow">{{KW_5}}</span>
+        <span class="kw-chip kw-sm kw-purple">{{KW_6}}</span>
+        <span class="kw-chip kw-sm kw-cyan">{{KW_7}}</span>
+        <span class="kw-chip kw-sm kw-pink">{{KW_8}}</span>
+        <span class="kw-chip kw-xs kw-yellow">{{KW_9}}</span>
+        <span class="kw-chip kw-xs kw-purple">{{KW_10}}</span>
+        <!-- Add more as needed -->
+      </div>
+    </div>
+
+    <!-- Activity breakdown -->
+    <div class="section-card">
+      <div class="section-header">
+        <span>📊</span>
+        <span class="section-title title-activity">Topic Activity</span>
+      </div>
+      <div class="activity-bar">
+        <!-- Agent: set width % proportional to paper count per topic -->
+        <div class="activity-row">
+          <span class="act-label">{{TOPIC_1}}</span>
+          <div class="act-bar-wrap"><div class="act-bar bar-purple" style="width:{{PCT_1}}%"></div></div>
+          <span class="act-val">{{CNT_1}}</span>
+        </div>
+        <div class="activity-row">
+          <span class="act-label">{{TOPIC_2}}</span>
+          <div class="act-bar-wrap"><div class="act-bar bar-cyan" style="width:{{PCT_2}}%"></div></div>
+          <span class="act-val">{{CNT_2}}</span>
+        </div>
+        <div class="activity-row">
+          <span class="act-label">{{TOPIC_3}}</span>
+          <div class="act-bar-wrap"><div class="act-bar bar-pink" style="width:{{PCT_3}}%"></div></div>
+          <span class="act-val">{{CNT_3}}</span>
+        </div>
+        <div class="activity-row">
+          <span class="act-label">{{TOPIC_4}}</span>
+          <div class="act-bar-wrap"><div class="act-bar bar-yellow" style="width:{{PCT_4}}%"></div></div>
+          <span class="act-val">{{CNT_4}}</span>
+        </div>
+        <div class="activity-row">
+          <span class="act-label">{{TOPIC_5}}</span>
+          <div class="act-bar-wrap"><div class="act-bar bar-purple" style="width:{{PCT_5}}%"></div></div>
+          <span class="act-val">{{CNT_5}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seed papers -->
+    <div class="section-card">
+      <div class="section-header">
+        <span>🌱</span>
+        <span class="section-title title-seeds">Seed Papers</span>
+      </div>
+      <div class="seed-list">
+        <!-- Agent: add one seed-item per seed paper -->
+        <a href="https://arxiv.org/abs/{{SEED_ID_1}}" class="seed-item" target="_blank">
+          <div class="seed-icon">📄</div>
+          <div class="seed-info">
+            <div class="seed-title">{{SEED_TITLE_1}}</div>
+            <div class="seed-id">arXiv:{{SEED_ID_1}}</div>
+          </div>
+        </a>
+        <a href="https://arxiv.org/abs/{{SEED_ID_2}}" class="seed-item" target="_blank">
+          <div class="seed-icon">📄</div>
+          <div class="seed-info">
+            <div class="seed-title">{{SEED_TITLE_2}}</div>
+            <div class="seed-id">arXiv:{{SEED_ID_2}}</div>
+          </div>
+        </a>
+        <a href="https://arxiv.org/abs/{{SEED_ID_3}}" class="seed-item" target="_blank">
+          <div class="seed-icon">📄</div>
+          <div class="seed-info">
+            <div class="seed-title">{{SEED_TITLE_3}}</div>
+            <div class="seed-id">arXiv:{{SEED_ID_3}}</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Whitelist authors + learned prefs -->
+    <div class="section-card">
+      <div class="section-header">
+        <span>👥</span>
+        <span class="section-title title-authors">Whitelist Authors</span>
+      </div>
+      <div class="author-chips" style="margin-bottom: 24px;">
+        <!-- Agent: add one author-chip per whitelisted author -->
+        <span class="author-chip">{{AUTHOR_1}}</span>
+        <span class="author-chip">{{AUTHOR_2}}</span>
+        <span class="author-chip">{{AUTHOR_3}}</span>
+        <span class="author-chip">{{AUTHOR_4}}</span>
+        <span class="author-chip">{{AUTHOR_5}}</span>
+      </div>
+
+      <div class="pref-section">
+        <div class="pref-title">✅ Learned Preferences (accept patterns)</div>
+        <div class="pref-tags" style="margin-bottom: 14px;">
+          <span class="pref-accept">{{PREF_ACCEPT_1}}</span>
+          <span class="pref-accept">{{PREF_ACCEPT_2}}</span>
+          <span class="pref-accept">{{PREF_ACCEPT_3}}</span>
+        </div>
+        <div class="pref-title">❌ Learned Preferences (reject patterns)</div>
+        <div class="pref-tags">
+          <span class="pref-reject">{{PREF_REJECT_1}}</span>
+          <span class="pref-reject">{{PREF_REJECT_2}}</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-grid -->
+
+  <!-- Footer -->
+  <footer class="profile-footer">
+    <span>Research profile managed by <span class="footer-brand">ResearchClaws</span></span>
+    <span>Last updated: {{LAST_UPDATED}} · {{KEYWORD_COUNT}} keywords · {{SEED_COUNT}} seed papers</span>
+  </footer>
+
+</div>
+</body>
+</html>
