@@ -3,630 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reading List Dashboard | ResearchClaw</title>
+<title>Paper Reading List | ResearchClaw</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* ============================================================
-   ResearchClaw Reading List Dashboard Template v2.0
-   Dark theme · 1920×1080 optimized · Responsive
-   ============================================================ */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f1117;--bg-card:#1a1d27;--bg-header:#141620;
+  --accent:#6c5ce7;--accent2:#00cec9;--accent3:#fd79a8;--accent4:#a29bfe;--accent5:#ffeaa7;
+  --text:#e2e8f0;--text-dim:#8892a8;--text-muted:#4a5568;
+  --border:rgba(255,255,255,0.06);--border-acc:rgba(108,92,231,0.3);
+}
+html{background:var(--bg);scroll-behavior:smooth}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7;font-size:15px}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.page-wrap{max-width:1800px;margin:0 auto;padding:0 32px 80px}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:20px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px}
+.logo{font-size:24px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px}
+.topbar-date{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-muted)}
+.section-heading{text-align:center;margin-bottom:36px}
+.section-heading h2{font-size:2.2rem;font-weight:900;margin-bottom:8px}
+.section-heading h2 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.section-heading p{color:var(--text-dim);font-size:1.05rem}
 
-:root {
-  --bg:         #0f1117;
-  --bg-card:    #1a1d27;
-  --bg-header:  #141620;
-  --accent:     #6c5ce7;
-  --accent2:    #00cec9;
-  --accent3:    #fd79a8;
-  --accent4:    #a29bfe;
-  --accent5:    #ffeaa7;
-  --text:       #e2e8f0;
-  --text-dim:   #8892a8;
-  --text-muted: #4a5568;
-  --border:     rgba(255,255,255,0.06);
-}
+/* Table styles */
+.table-wrap{overflow-x:auto;border-radius:16px;border:1px solid var(--border);background:var(--bg-card)}
+table{width:100%;border-collapse:collapse;min-width:1400px}
+thead{background:var(--bg-header);position:sticky;top:0;z-index:10}
+th{padding:16px 18px;text-align:left;font-size:13px;font-weight:700;color:var(--accent4);text-transform:uppercase;letter-spacing:1.5px;font-family:'JetBrains Mono',monospace;border-bottom:2px solid var(--border-acc);white-space:nowrap}
+td{padding:14px 18px;border-bottom:1px solid var(--border);vertical-align:top;font-size:14px;line-height:1.6}
+tr{transition:background .15s}
+tr:hover{background:rgba(108,92,231,0.04)}
 
-html { background: var(--bg); }
-body {
-  font-family: 'Noto Sans SC', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-}
+/* Alias column (sticky) */
+td:first-child,th:first-child{position:sticky;left:0;background:var(--bg-card);z-index:5;min-width:100px;font-weight:700}
+th:first-child{background:var(--bg-header)}
+tr:hover td:first-child{background:rgba(108,92,231,0.06)}
+/* Star rating */
+.stars{color:var(--accent5);font-size:16px;white-space:nowrap}
+.stars-dim{color:var(--text-muted)}
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+/* Figure thumbnail */
+.fig-thumb{width:120px;height:80px;object-fit:cover;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:transform .2s,box-shadow .2s}
+.fig-thumb:hover{transform:scale(2.5);box-shadow:0 8px 32px rgba(0,0,0,.6);z-index:100;position:relative}
+.fig-na{font-size:12px;color:var(--text-muted);font-style:italic}
 
-.page-wrap { max-width: 1400px; margin: 0 auto; padding: 0 32px 80px; }
+/* Tags */
+.tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:500;margin:2px 2px}
+.tag-cyan{color:var(--accent2);border:1px solid rgba(0,206,201,0.2);background:rgba(0,206,201,0.06)}
+.tag-purple{color:var(--accent4);border:1px solid rgba(162,155,254,0.2);background:rgba(162,155,254,0.06)}
 
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 0 28px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 36px;
-}
-.logo {
-  font-size: 22px;
-  font-weight: 900;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -0.5px;
-}
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.topbar-date {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--text-muted);
-}
+/* Summary cell */
+td.summary{max-width:400px;font-size:13px;color:var(--text-dim);line-height:1.7}
 
-.stats-bar {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-  margin-bottom: 40px;
-}
-.stat-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px 24px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  transition: border-color 0.2s;
-}
-.stat-card:hover { border-color: rgba(108,92,231,0.25); }
-.stat-icon {
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-.icon-total    { background: rgba(108,92,231,0.15); }
-.icon-toread   { background: rgba(253,121,168,0.15); }
-.icon-reading  { background: rgba(255,234,167,0.15); }
-.icon-done     { background: rgba(0,206,201,0.15); }
-.icon-week     { background: rgba(162,155,254,0.15); }
-.stat-val {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.val-purple { color: var(--accent4); }
-.val-pink   { color: var(--accent3); }
-.val-yellow { color: var(--accent5); }
-.val-cyan   { color: var(--accent2); }
-.stat-label {
-  font-size: 12px;
-  color: var(--text-muted);
-}
+/* Footer */
+.reading-footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--text-muted);font-family:'JetBrains Mono',monospace}
+.footer-brand{font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
-.search-bar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 32px;
-}
-.search-input-wrap {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 18px;
-  font-size: 13px;
-  color: var(--text-dim);
-  font-family: 'JetBrains Mono', monospace;
-}
-.search-placeholder { color: var(--text-muted); }
-.filter-chips {
-  display: flex;
-  gap: 8px;
-}
-.filter-chip {
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  border: 1px solid;
-  cursor: pointer;
-}
-.chip-all      { color: var(--text-dim);  border-color: var(--border);               background: var(--bg-card); }
-.chip-active   { color: var(--accent4);   border-color: rgba(162,155,254,0.35);       background: rgba(162,155,254,0.08); }
-
-.kanban {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 24px;
-  align-items: start;
-}
-
-.column {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  overflow: hidden;
-}
-
-.column-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 20px 16px;
-  border-bottom: 1px solid var(--border);
-}
-.col-title-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.col-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-}
-.dot-toread  { background: var(--accent3); box-shadow: 0 0 8px rgba(253,121,168,0.4); }
-.dot-reading { background: var(--accent5); box-shadow: 0 0 8px rgba(255,234,167,0.4); }
-.dot-done    { background: var(--accent2); box-shadow: 0 0 8px rgba(0,206,201,0.4); }
-
-.col-name {
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-family: 'JetBrains Mono', monospace;
-}
-.name-toread  { color: var(--accent3); }
-.name-reading { color: var(--accent5); }
-.name-done    { color: var(--accent2); }
-
-.col-count {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: var(--text-muted);
-  background: rgba(255,255,255,0.04);
-  padding: 3px 10px;
-  border-radius: 20px;
-}
-
-.column-body {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.paper-card {
-  background: rgba(255,255,255,0.025);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-  transition: border-color 0.15s, background 0.15s;
-  cursor: pointer;
-  text-decoration: none;
-  display: block;
-  color: inherit;
-}
-.paper-card:hover {
-  border-color: rgba(108,92,231,0.25);
-  background: rgba(108,92,231,0.04);
-}
-
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-.paper-card-title {
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--text);
-  flex: 1;
-}
-.card-score {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 8px;
-  flex-shrink: 0;
-  align-self: flex-start;
-}
-.score-high { color: var(--accent2); background: rgba(0,206,201,0.1); border: 1px solid rgba(0,206,201,0.2); }
-.score-mid  { color: var(--accent4); background: rgba(162,155,254,0.1); border: 1px solid rgba(162,155,254,0.2); }
-.score-low  { color: var(--text-muted); background: rgba(255,255,255,0.04); border: 1px solid var(--border); }
-
-.card-authors {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 10px;
-  font-style: italic;
-}
-.card-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.card-tag {
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 6px;
-  border: 1px solid;
-  font-weight: 500;
-}
-.tag-cyan   { color: var(--accent2); border-color: rgba(0,206,201,0.2);   background: rgba(0,206,201,0.06); }
-.tag-purple { color: var(--accent4); border-color: rgba(162,155,254,0.2); background: rgba(162,155,254,0.06); }
-.tag-pink   { color: var(--accent3); border-color: rgba(253,121,168,0.2); background: rgba(253,121,168,0.06); }
-.tag-yellow { color: var(--accent5); border-color: rgba(255,234,167,0.2); background: rgba(255,234,167,0.06); }
-
-.card-date {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-muted);
-  margin-left: auto;
-}
-
-.note-link-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 10px;
-  color: var(--accent);
-  margin-top: 8px;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.reading-footer {
-  margin-top: 40px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  color: var(--text-muted);
-  font-family: 'JetBrains Mono', monospace;
-}
-.footer-brand {
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-@media (max-width: 1100px) {
-  .kanban { grid-template-columns: 1fr; }
-  .stats-bar { grid-template-columns: repeat(3, 1fr); }
-}
-
-/* ── Light mode ─────────────────────────────────── */
-body.light {
-  --bg: #ffffff;
-  --bg-card: #f8f9fa;
-  --bg-code: #f1f3f5;
-  --text: #1a1a2e;
-  --text-dim: #4a5568;
-  --text-muted: #718096;
-  --border: rgba(0,0,0,0.08);
-  --border-acc: rgba(108,92,231,0.2);
-  --glow: rgba(108,92,231,0.06);
-}
-body { transition: background .3s, color .3s; }
+/* Light mode */
+body.light{--bg:#ffffff;--bg-card:#f8f9fa;--bg-header:#f1f3f5;--text:#1a1a2e;--text-dim:#4a5568;--text-muted:#718096;--border:rgba(0,0,0,0.08);--border-acc:rgba(108,92,231,0.2)}
+body.light td:first-child,body.light th:first-child{background:inherit}
+body{transition:background .3s,color .3s}
 </style>
 </head>
 <body>
-<!-- Theme toggle -->
 <button id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" style="position:fixed;top:16px;right:16px;z-index:9999;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;box-shadow:0 2px 8px rgba(0,0,0,.2);">🌙</button>
 
 <div class="page-wrap">
-
-  <!-- Top bar -->
   <nav class="topbar">
-    <span class="logo">🦞 ResearchClaw</span>
+    <span class="logo">🦞 ResearchClaw · Paper Table</span>
     <div class="topbar-right">
-      <span class="topbar-date">Updated: 2026-03-26</span>
+      <span class="topbar-date">Topic: Agentic Skills · 11 papers · Updated: 2026-03-27</span>
     </div>
   </nav>
 
-  <!-- Stats bar -->
-  <div class="stats-bar">
-    <div class="stat-card">
-      <div class="stat-icon icon-total">📚</div>
-      <div class="stat-info">
-        <div class="stat-val val-purple">16</div>
-        <div class="stat-label">Total Papers</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon icon-toread">📥</div>
-      <div class="stat-info">
-        <div class="stat-val val-pink">6</div>
-        <div class="stat-label">To Read</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon icon-reading">📖</div>
-      <div class="stat-info">
-        <div class="stat-val val-yellow">3</div>
-        <div class="stat-label">Reading</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon icon-done">✅</div>
-      <div class="stat-info">
-        <div class="stat-val val-cyan">7</div>
-        <div class="stat-label">Done</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon icon-week">🔥</div>
-      <div class="stat-info">
-        <div class="stat-val val-purple">4</div>
-        <div class="stat-label">Read This Week</div>
-      </div>
-    </div>
+  <div class="section-heading">
+    <h2><span class="grad">Agentic Skills Reading List</span></h2>
+    <p>Structured paper table with figures, benchmarks, and one-line summaries</p>
   </div>
 
-  <!-- Search / filter bar (decorative) -->
-  <div class="search-bar">
-    <div class="search-input-wrap">
-      <span>🔍</span>
-      <span class="search-placeholder">Search papers by title, author, or topic…</span>
-    </div>
-    <div class="filter-chips">
-      <span class="filter-chip chip-active">All</span>
-      <span class="filter-chip chip-all">LLM</span>
-      <span class="filter-chip chip-all">RL</span>
-      <span class="filter-chip chip-all">Memory</span>
-      <span class="filter-chip chip-all">Multimodal</span>
-    </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Alias</th>
+          <th>Title</th>
+          <th>Source</th>
+          <th>Institution</th>
+          <th>Benchmarking</th>
+          <th>⭐</th>
+          <th>Figure</th>
+          <th>Summary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="#">Comp-RL</a></td>
+          <td>Complementary Reinforcement Learning</td>
+          <td><a href="https://arxiv.org/abs/2603.17621" target="_blank">arXiv 2603.17621</a></td>
+          <td>Alibaba Group / HKUST</td>
+          <td><span class="tag tag-cyan">MiniHack</span> <span class="tag tag-cyan">ALFWorld</span> <span class="tag tag-cyan">WebShop</span> <span class="tag tag-cyan">SWE-Bench</span></td>
+          <td><span class="stars">★★★★★</span></td>
+          <td><img class="fig-thumb" src="https://arxiv.org/html/2603.17621v1/x1.png" alt="Comp-RL Fig.1" onerror="this.outerHTML='<span class=fig-na>N/A</span>'"></td>
+          <td class="summary">受 CLS 启发的 actor-extractor 共演化 RL 框架：静态经验随训练变为负资产，共演化闭环单任务 1.3× margin + 多任务 +7%；split-group GRPO 防止 actor 对经验过度依赖。</td>
+        </tr>
+        <tr>
+          <td><a href="#">ExGRPO</a></td>
+          <td>ExGRPO: Learning to Reason from Experience</td>
+          <td><a href="https://arxiv.org/abs/2510.02245" target="_blank">arXiv 2510.02245</a></td>
+          <td>University of Macau / Shanghai AI Lab</td>
+          <td><span class="tag tag-cyan">AIME24/25</span> <span class="tag tag-cyan">MATH-500</span> <span class="tag tag-cyan">GPQA★</span> <span class="tag tag-cyan">MMLU-Pro</span></td>
+          <td><span class="stars">★★★★</span><span class="stars-dim">☆</span></td>
+          <td><img class="fig-thumb" src="https://arxiv.org/html/2510.02245v1/x1.png" alt="ExGRPO Fig.1" onerror="this.outerHTML='<span class=fig-na>N/A</span>'"></td>
+          <td class="summary">首个系统研究 RLVR 经验价值的工作：中等难度题+低熵轨迹是最优经验来源；bucketed replay + entropy selection 在 5 模型上平均 +3.5/+7.6（ID/OOD）。</td>
+        </tr>
+        <tr>
+          <td><a href="#">TRT</a></td>
+          <td>Test-time Recursive Thinking: Self-Improvement without External Feedback</td>
+          <td><a href="https://arxiv.org/abs/2602.03094" target="_blank">arXiv 2602.03094</a></td>
+          <td>Microsoft Research</td>
+          <td><span class="tag tag-cyan">AIME-24/25</span> <span class="tag tag-cyan">LiveCodeBench Hard</span></td>
+          <td><span class="stars">★★★★</span><span class="stars-dim">☆</span></td>
+          <td><span class="fig-na">N/A</span></td>
+          <td class="summary">无需外部反馈的 test-time 迭代自改进：Generate-Select-Reflect 三阶段闭环；开源模型 AIME 100%，核心发现：失败知识 > 成功知识，depth > breadth。</td>
+        </tr>
+        <tr>
+          <td><a href="#">OEL</a></td>
+          <td>Online Experiential Learning for Language Models</td>
+          <td><a href="https://arxiv.org/abs/2603.16856" target="_blank">arXiv 2603.16856</a></td>
+          <td>—</td>
+          <td><span class="tag tag-cyan">Frozen Lake</span> <span class="tag tag-cyan">Sokoban</span> <span class="tag tag-cyan">IF-Eval</span></td>
+          <td><span class="stars">★★★★</span><span class="stars-dim">☆</span></td>
+          <td><img class="fig-thumb" src="https://arxiv.org/html/2603.16856v1/figures/oel-overview.pdf" alt="OEL Fig.1" onerror="this.outerHTML='<span class=fig-na>N/A</span>'"></td>
+          <td class="summary">经验抽取后再做 on-policy 蒸馏显著优于直接吃原始轨迹（Sokoban consolidate 21.4 vs 7.8），self-policy 经验优于更大教师经验。</td>
+        </tr>
+        <tr>
+          <td><a href="#">SkillsBench</a></td>
+          <td>Benchmarking How Well Agent Skills Work Across Diverse Tasks</td>
+          <td><a href="https://arxiv.org/abs/2602.12670" target="_blank">arXiv 2602.12670</a></td>
+          <td>—</td>
+          <td><span class="tag tag-cyan">86 tasks</span> <span class="tag tag-cyan">11 domains</span></td>
+          <td><span class="stars">★★★★</span><span class="stars-dim">☆</span></td>
+          <td><span class="fig-na">N/A</span></td>
+          <td class="summary">最关键结论：人工 curated skills 平均 +16.2pp，而 self-generated skills 平均退化（-3.3pp pass rate），说明 skill 质量控制比数量更重要。</td>
+        </tr>
+        <tr>
+          <td><a href="#">MemSkill</a></td>
+          <td>Learning and Evolving Memory Skills for Self-Evolving Agents</td>
+          <td><a href="https://arxiv.org/abs/2602.02474" target="_blank">arXiv 2602.02474</a></td>
+          <td>—</td>
+          <td><span class="tag tag-cyan">LoCoMo</span> <span class="tag tag-cyan">LongMemEval</span> <span class="tag tag-cyan">HotpotQA</span> <span class="tag tag-cyan">ALFWorld</span></td>
+          <td><span class="stars">★★★</span><span class="stars-dim">☆☆</span></td>
+          <td><img class="fig-thumb" src="https://arxiv.org/html/2602.02474v1/x1.png" alt="MemSkill Fig.1" onerror="this.outerHTML='<span class=fig-na>N/A</span>'"></td>
+          <td class="summary">把记忆操作做成可检索、可演化 skill（controller/executor/designer）；消融显示去掉 designer 退化最大，说明"持续增量技能"是关键。</td>
+        </tr>
+        <tr>
+          <td><a href="#">SkillRL</a></td>
+          <td>Evolving Agents via Recursive Skill-Augmented Reinforcement Learning</td>
+          <td><a href="https://arxiv.org/abs/2602.08234" target="_blank">arXiv 2602.08234</a></td>
+          <td>—</td>
+          <td><span class="tag tag-cyan">ALFWorld</span> <span class="tag tag-cyan">WebShop</span> <span class="tag tag-cyan">7 search tasks</span></td>
+          <td><span class="stars">★★★</span><span class="stars-dim">☆☆</span></td>
+          <td><img class="fig-thumb" src="https://arxiv.org/html/2602.08234v1/x1.png" alt="SkillRL Fig.1" onerror="this.outerHTML='<span class=fig-na>N/A</span>'"></td>
+          <td class="summary">轨迹记忆→技能记忆+递归演化有效：复杂子任务增益大、收敛更快，约 10.3% 上下文 token 缩减。</td>
+        </tr>
+        <tr>
+          <td><a href="#">AutoSkill</a></td>
+          <td>Experience-Driven Lifelong Learning via Skill Self-Evolution</td>
+          <td><a href="https://arxiv.org/abs/2603.01145" target="_blank">arXiv 2603.01145</a></td>
+          <td>ECNU / Shanghai AI Lab</td>
+          <td><span class="tag tag-cyan">Lifelong personalization</span></td>
+          <td><span class="stars">★★★</span><span class="stars-dim">☆☆</span></td>
+          <td><img class="fig-thumb" src="https://arxiv.org/html/2603.01145v2/x1.png" alt="AutoSkill Fig.1" onerror="this.outerHTML='<span class=fig-na>N/A</span>'"></td>
+          <td class="summary">重点不是加检索器，而是把长期经验沉淀为可版本化 SKILL.md 并异步 merge/演化；工程价值在 training-free 个性化闭环。</td>
+        </tr>
+        <tr>
+          <td><a href="#">SkillOrchestra</a></td>
+          <td>SkillOrchestra: Learning to Route Agents via Skill Transfer</td>
+          <td><a href="https://arxiv.org/abs/2602.19672" target="_blank">arXiv 2602.19672</a></td>
+          <td>UW-Madison / Salesforce AI</td>
+          <td><span class="tag tag-cyan">10 benchmarks</span></td>
+          <td><span class="stars">★★★</span><span class="stars-dim">☆☆</span></td>
+          <td><span class="fig-na">N/A</span></td>
+          <td class="summary">用"技能需求"而非 query 相似度做路由，能缓解 RL 路由 collapse，在性能-成本 Pareto 上更稳。</td>
+        </tr>
+        <tr>
+          <td><a href="#">SoK-Skills</a></td>
+          <td>Agentic Skills — Beyond Tool Use in LLM Agents</td>
+          <td><a href="https://arxiv.org/abs/2602.20867" target="_blank">arXiv 2602.20867</a></td>
+          <td>—</td>
+          <td><span class="tag tag-purple">SoK / taxonomy</span></td>
+          <td><span class="stars">★★★</span><span class="stars-dim">☆☆</span></td>
+          <td><img class="fig-thumb" src="https://arxiv.org/html/2602.20867v1/figures/skill-anatomy/figure.png" alt="SoK Fig.1" onerror="this.outerHTML='<span class=fig-na>N/A</span>'"></td>
+          <td class="summary">贡献在系统化：给出 skill 四元组与生命周期框架，并把供应链安全纳入同一评估视角。</td>
+        </tr>
+        <tr>
+          <td><a href="#">Survey</a></td>
+          <td>Agent Skills for LLMs: Architecture, Acquisition, Security, and the Path Forward</td>
+          <td><a href="https://arxiv.org/abs/2602.12430" target="_blank">arXiv 2602.12430</a></td>
+          <td>—</td>
+          <td><span class="tag tag-purple">Survey</span></td>
+          <td><span class="stars">★★★</span><span class="stars-dim">☆☆</span></td>
+          <td><img class="fig-thumb" src="https://arxiv.org/html/2602.12430v3/x1.png" alt="Survey Fig.1" onerror="this.outerHTML='<span class=fig-na>N/A</span>'"></td>
+          <td class="summary">价值在于把 architecture/acquisition/security/governance 串成一张图，用大规模安全统计强调 skill 生态的治理刚需。</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <!-- Kanban board -->
-  <div class="kanban">
-
-    <!-- To Read column -->
-    <div class="column">
-      <div class="column-header">
-        <div class="col-title-row">
-          <div class="col-dot dot-toread"></div>
-          <span class="col-name name-toread">To Read</span>
-        </div>
-        <span class="col-count">6 papers</span>
-      </div>
-      <div class="column-body">
-
-        <a href="https://alphalab-ustc.github.io/rlcer-alphalab/" class="paper-card" target="_blank">
-          <div class="card-top">
-            <div class="paper-card-title">RLCER: Reinforcing Chain-of-Thought Reasoning with Self-Evolving Rubrics</div>
-            <span class="card-score score-high">9/10</span>
-          </div>
-          <div class="card-authors">Sheng, Ma, Hong, Wang, Zhang, Chua et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-purple">RL</span>
-            <span class="card-tag tag-cyan">Reasoning</span>
-            <span class="card-date">2026-03-26</span>
-          </div>
-        </a>
-
-        <a href="#" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">RLVR: Reinforcement Learning with Verifiable Rewards</div>
-            <span class="card-score score-high">9/10</span>
-          </div>
-          <div class="card-authors">Zhang et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-cyan">LLM Reasoning</span>
-            <span class="card-tag tag-purple">RL</span>
-            <span class="card-date">2026-03-25</span>
-          </div>
-        </a>
-
-        <a href="#" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">MemoryBank: Enhancing Large Language Model Memory with Episodic Memory</div>
-            <span class="card-score score-mid">8/10</span>
-          </div>
-          <div class="card-authors">Chen et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-pink">Memory</span>
-            <span class="card-tag tag-purple">LLM</span>
-            <span class="card-date">2026-03-24</span>
-          </div>
-        </a>
-
-        <a href="#" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">Agent-Pro: Learning to Evolve via Policy-Level Reflection</div>
-            <span class="card-score score-mid">8/10</span>
-          </div>
-          <div class="card-authors">Li et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-cyan">Agents</span>
-            <span class="card-tag tag-purple">RL</span>
-            <span class="card-date">2026-03-23</span>
-          </div>
-        </a>
-
-        <a href="#" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">InternLM-XComposer3: Visual Language Model with Chain-of-Thought</div>
-            <span class="card-score score-mid">7/10</span>
-          </div>
-          <div class="card-authors">Wang et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-yellow">Multimodal</span>
-            <span class="card-tag tag-cyan">CoT</span>
-            <span class="card-date">2026-03-22</span>
-          </div>
-        </a>
-
-        <a href="#" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">Recursive Reasoning in LLMs via Tree-of-Thought Refinement</div>
-            <span class="card-score score-mid">7/10</span>
-          </div>
-          <div class="card-authors">Park et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-cyan">Reasoning</span>
-            <span class="card-tag tag-purple">LLM</span>
-            <span class="card-date">2026-03-21</span>
-          </div>
-        </a>
-
-      </div>
-    </div>
-
-    <!-- Reading column -->
-    <div class="column">
-      <div class="column-header">
-        <div class="col-title-row">
-          <div class="col-dot dot-reading"></div>
-          <span class="col-name name-reading">Reading</span>
-        </div>
-        <span class="col-count">3 papers</span>
-      </div>
-      <div class="column-body">
-
-        <a href="#" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">ReMemR1: Revisitable Memory for Long-Context LLM Agents</div>
-            <span class="card-score score-high">10/10</span>
-          </div>
-          <div class="card-authors">Shi et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-pink">Memory</span>
-            <span class="card-tag tag-cyan">Agents</span>
-            <span class="card-date">2026-03-15</span>
-          </div>
-          <div class="note-link-badge">📄 View Note →</div>
-        </a>
-
-        <a href="#" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">Scaling Test-Time Compute with Adaptive Verification</div>
-            <span class="card-score score-mid">8/10</span>
-          </div>
-          <div class="card-authors">Liu et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-cyan">Reasoning</span>
-            <span class="card-tag tag-purple">Scaling</span>
-            <span class="card-date">2026-03-18</span>
-          </div>
-        </a>
-
-        <a href="#" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">LongCat-Flash-Thinking: Technical Report</div>
-            <span class="card-score score-high">9/10</span>
-          </div>
-          <div class="card-authors">Meituan et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-yellow">Long-Context</span>
-            <span class="card-tag tag-cyan">Reasoning</span>
-            <span class="card-date">2026-03-10</span>
-          </div>
-        </a>
-
-      </div>
-    </div>
-
-    <!-- Done column -->
-    <div class="column">
-      <div class="column-header">
-        <div class="col-title-row">
-          <div class="col-dot dot-done"></div>
-          <span class="col-name name-done">Done</span>
-        </div>
-        <span class="col-count">7 papers</span>
-      </div>
-      <div class="column-body">
-
-        <a href="demo-paper-note.html" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">AutoRefine: Search and Refine During Think</div>
-            <span class="card-score score-high">9/10</span>
-          </div>
-          <div class="card-authors">Shi et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-cyan">Reasoning</span>
-            <span class="card-tag tag-purple">RAG</span>
-            <span class="card-date">2026-03-05</span>
-          </div>
-          <div class="note-link-badge">📄 View Note →</div>
-        </a>
-
-        <a href="#" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">MemOCR: Layout-Aware Visual Memory</div>
-            <span class="card-score score-high">9/10</span>
-          </div>
-          <div class="card-authors">Shi et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-pink">Memory</span>
-            <span class="card-tag tag-yellow">Vision</span>
-            <span class="card-date">2026-02-28</span>
-          </div>
-          <div class="note-link-badge">📄 View Note →</div>
-        </a>
-
-        <a href="#" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">SciLitLLM: Adapting LLMs for Scientific Literature</div>
-            <span class="card-score score-mid">8/10</span>
-          </div>
-          <div class="card-authors">Shi et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-cyan">NLP</span>
-            <span class="card-tag tag-purple">Literature</span>
-            <span class="card-date">2026-02-20</span>
-          </div>
-          <div class="note-link-badge">📄 View Note →</div>
-        </a>
-
-        <a href="#" class="paper-card">
-          <div class="card-top">
-            <div class="paper-card-title">DeepSeek-R1: Incentivizing Reasoning via RL</div>
-            <span class="card-score score-high">9/10</span>
-          </div>
-          <div class="card-authors">DeepSeek et al.</div>
-          <div class="card-meta">
-            <span class="card-tag tag-cyan">Reasoning</span>
-            <span class="card-tag tag-purple">RL</span>
-            <span class="card-date">2026-02-15</span>
-          </div>
-          <div class="note-link-badge">📄 View Note →</div>
-        </a>
-
-      </div>
-    </div>
-
-  </div><!-- /kanban -->
-
-  <!-- Footer -->
   <footer class="reading-footer">
     <span>Powered by <span class="footer-brand">ResearchClaw</span></span>
-    <span>15 papers tracked · Last updated 2026-03-26</span>
+    <span>11 papers · Agentic Skills topic · Updated 2026-03-27</span>
   </footer>
-
 </div>
+
 <script>
 (function(){
   var saved = localStorage.getItem('theme');
