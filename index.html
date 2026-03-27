@@ -12,8 +12,9 @@
   --accent:#6c5ce7;--accent2:#00cec9;--accent3:#fd79a8;--accent4:#a29bfe;--accent5:#ffeaa7;
   --text:#e2e8f0;--text-dim:#8892a8;--text-muted:#4a5568;
   --border:rgba(255,255,255,0.06);--border-acc:rgba(108,92,231,0.3);
+  --nav-bg-rgb:15,17,23;
 }
-html{background:var(--bg);scroll-behavior:smooth}
+html{scroll-behavior:smooth}
 body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.8;font-size:18px}
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
@@ -22,7 +23,7 @@ a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
 
 /* ── Nav ── */
-.nav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 0}
+.nav{position:sticky;top:0;z-index:100;background:rgba(var(--nav-bg-rgb),0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 0}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{font-size:26px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px;text-decoration:none}
 .nav-links{display:flex;gap:28px;font-size:16px;font-weight:500}
@@ -106,6 +107,7 @@ body.light {
   --border: rgba(0,0,0,0.08);
   --border-acc: rgba(108,92,231,0.2);
   --glow: rgba(108,92,231,0.06);
+  --nav-bg-rgb:255,255,255;
 }
 body { transition: background .3s, color .3s; }
 </style>
