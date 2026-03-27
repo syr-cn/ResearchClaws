@@ -14,7 +14,7 @@
   --border:rgba(255,255,255,0.06);--border-acc:rgba(108,92,231,0.3);
 }
 html{background:var(--bg);scroll-behavior:smooth}
-body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.8;font-size:18px}
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
@@ -24,22 +24,22 @@ a:hover{text-decoration:underline}
 /* ── Nav ── */
 .nav{position:sticky;top:0;z-index:100;background:rgba(15,17,23,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 0}
 .nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px;text-decoration:none}
-.nav-links{display:flex;gap:24px;font-size:13px;font-weight:500}
+.nav-logo{font-size:26px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px;text-decoration:none}
+.nav-links{display:flex;gap:28px;font-size:16px;font-weight:500}
 .nav-links a{color:var(--text-dim);text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
-.nav-gh{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;background:rgba(108,92,231,0.1);border:1px solid var(--border-acc);color:var(--accent4);font-size:12px;font-weight:600;text-decoration:none;transition:background .2s}
+.nav-gh{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:8px;background:rgba(108,92,231,0.1);border:1px solid var(--border-acc);color:var(--accent4);font-size:15px;font-weight:600;text-decoration:none;transition:background .2s}
 .nav-gh:hover{background:rgba(108,92,231,0.2);text-decoration:none}
 
 /* ── Hero ── */
 .hero{max-width:1200px;margin:0 auto;padding:80px 32px 60px;text-align:center}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:20px;background:rgba(108,92,231,0.1);border:1px solid var(--border-acc);font-size:12px;font-weight:600;color:var(--accent4);margin-bottom:28px;font-family:'JetBrains Mono',monospace}
-.hero h1{font-size:3.5rem;font-weight:900;line-height:1.15;margin-bottom:20px;letter-spacing:-1px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 22px;border-radius:20px;background:rgba(108,92,231,0.1);border:1px solid var(--border-acc);font-size:15px;font-weight:600;color:var(--accent4);margin-bottom:28px;font-family:'JetBrains Mono',monospace}
+.hero h1{font-size:4.2rem;font-weight:900;line-height:1.15;margin-bottom:20px;letter-spacing:-1px}
 .hero h1 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-sub{font-size:1.15rem;color:var(--text-dim);max-width:640px;margin:0 auto 36px;line-height:1.8}
+.hero-sub{font-size:1.35rem;color:var(--text-dim);max-width:640px;margin:0 auto 36px;line-height:1.8}
 .hero-sub strong{color:var(--text)}
 .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:12px;font-size:17px;font-weight:600;text-decoration:none;transition:transform .15s,box-shadow .15s}
 .btn:hover{transform:translateY(-2px);text-decoration:none}
 .btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 20px rgba(108,92,231,0.3)}
 .btn-primary:hover{box-shadow:0 8px 30px rgba(108,92,231,0.4)}
@@ -47,16 +47,16 @@ a:hover{text-decoration:underline}
 
 /* ── Install banner ── */
 .install-banner{max-width:800px;margin:0 auto 60px;background:var(--bg-code);border:1px solid var(--border-acc);border-radius:16px;padding:24px 32px;text-align:left}
-.install-label{font-size:11px;font-weight:700;color:var(--accent3);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;font-family:'JetBrains Mono',monospace}
-.install-code{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent2);background:rgba(0,206,201,0.05);padding:12px 18px;border-radius:8px;border:1px solid rgba(0,206,201,0.15);word-break:break-all;line-height:1.6}
-.install-note{font-size:12px;color:var(--text-muted);margin-top:10px}
+.install-label{font-size:14px;font-weight:700;color:var(--accent3);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;font-family:'JetBrains Mono',monospace}
+.install-code{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--accent2);background:rgba(0,206,201,0.05);padding:12px 18px;border-radius:8px;border:1px solid rgba(0,206,201,0.15);word-break:break-all;line-height:1.6}
+.install-note{font-size:14px;color:var(--text-muted);margin-top:10px}
 
 /* ── Capabilities grid ── */
 .section{max-width:1200px;margin:0 auto;padding:0 32px 60px}
 .section-heading{text-align:center;margin-bottom:48px}
-.section-heading h2{font-size:2rem;font-weight:900;margin-bottom:12px}
+.section-heading h2{font-size:2.5rem;font-weight:900;margin-bottom:12px}
 .section-heading h2 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.section-heading p{color:var(--text-dim);font-size:1rem}
+.section-heading p{color:var(--text-dim);font-size:1.2rem}
 .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .cap-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color .2s,transform .2s}
 .cap-card:hover{border-color:rgba(108,92,231,0.3);transform:translateY(-3px)}
@@ -67,26 +67,26 @@ a:hover{text-decoration:underline}
 .icon-taste{background:rgba(255,234,167,0.15)}
 .icon-idea{background:rgba(162,155,254,0.15)}
 .icon-writer{background:rgba(108,92,231,0.15)}
-.cap-card h3{font-size:1.05rem;font-weight:700;margin-bottom:4px}
-.cap-card .cap-en{font-size:12px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;margin-bottom:10px}
-.cap-card p{font-size:13px;color:var(--text-dim);line-height:1.7}
-.cap-trigger{display:inline-block;margin-top:12px;padding:3px 10px;border-radius:6px;font-size:11px;font-family:'JetBrains Mono',monospace;background:rgba(0,206,201,0.08);color:var(--accent2);border:1px solid rgba(0,206,201,0.15)}
+.cap-card h3{font-size:1.3rem;font-weight:700;margin-bottom:4px}
+.cap-card .cap-en{font-size:14px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;margin-bottom:10px}
+.cap-card p{font-size:15px;color:var(--text-dim);line-height:1.7}
+.cap-trigger{display:inline-block;margin-top:12px;padding:4px 12px;border-radius:6px;font-size:14px;font-family:'JetBrains Mono',monospace;background:rgba(0,206,201,0.08);color:var(--accent2);border:1px solid rgba(0,206,201,0.15)}
 
 /* ── Showcase section ── */
-.showcase-label{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:3px;font-family:'JetBrains Mono',monospace;margin-bottom:8px;text-align:center}
+.showcase-label{font-size:14px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:3px;font-family:'JetBrains Mono',monospace;margin-bottom:8px;text-align:center}
 .showcase-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(108,92,231,0.3),transparent);margin-bottom:32px}
 .show-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:16px}
 .show-card{display:block;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:22px;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
 .show-card:hover{border-color:rgba(108,92,231,0.3);transform:translateY(-3px);text-decoration:none}
 .show-icon{font-size:28px;margin-bottom:10px}
-.show-card h3{font-size:14px;font-weight:700;margin-bottom:6px}
-.show-card p{font-size:12px;color:var(--text-dim);line-height:1.6}
-.show-tag{display:inline-block;margin-top:10px;padding:3px 10px;border-radius:8px;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace}
+.show-card h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.show-card p{font-size:14px;color:var(--text-dim);line-height:1.6}
+.show-tag{display:inline-block;margin-top:10px;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:600;font-family:'JetBrains Mono',monospace}
 .tag-case{background:rgba(0,206,201,0.1);color:var(--accent2);border:1px solid rgba(0,206,201,0.2)}
 .tag-demo{background:rgba(162,155,254,0.1);color:var(--accent4);border:1px solid rgba(162,155,254,0.2)}
 
 /* ── Footer ── */
-.site-footer{max-width:1200px;margin:0 auto;padding:40px 32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;flex-wrap:wrap;gap:16px}
+.site-footer{max-width:1200px;margin:0 auto;padding:40px 32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;flex-wrap:wrap;gap:16px}
 .footer-brand{font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
 @media(max-width:900px){
@@ -154,9 +154,9 @@ body { transition: background .3s, color .3s; }
   <div style="max-width:800px;margin:0 auto;background:linear-gradient(135deg,rgba(108,92,231,0.08),rgba(0,206,201,0.05));border:1px solid var(--border-acc);border-radius:16px;padding:28px 36px">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
       <span style="font-size:24px">📖</span>
-      <span style="font-size:16px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">基于 CRGP 分析法</span>
+      <span style="font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">基于 CRGP 分析法</span>
     </div>
-    <p style="font-size:14px;color:var(--text-dim);line-height:1.8;margin-bottom:12px">
+    <p style="font-size:17px;color:var(--text-dim);line-height:1.8;margin-bottom:12px">
       每篇论文阅读笔记均采用 <strong style="color:var(--text)">CRGP 结构化分析</strong>——
       <strong style="color:var(--accent)">C</strong>ontext（研究背景）→
       <strong style="color:var(--accent2)">R</strong>elated Work（相关工作）→
@@ -164,7 +164,7 @@ body { transition: background .3s, color .3s; }
       <strong style="color:var(--accent4)">P</strong>roposal（本文方案），
       帮助读者在 30 秒内抓住论文的核心逻辑链。配合图表解读、实验数字和关键发现，生成真正有帮助的深度笔记。
     </p>
-    <span style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace">Context → Related Work → Gap → Proposal → Method → Results → Insights</span>
+    <span style="font-size:14px;color:var(--text-muted);font-family:'JetBrains Mono',monospace">Context → Related Work → Gap → Proposal → Method → Results → Insights</span>
   </div>
 </section>
 
