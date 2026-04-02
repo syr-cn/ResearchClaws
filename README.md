@@ -7,7 +7,7 @@
 *由 [OpenClaw](https://openclaw.ai) 驱动 · Powered by OpenClaw*
 
 [![OpenClaw Skill](https://img.shields.io/badge/OpenClaw-Skill-blue?style=flat-square)](https://openclaw.ai)
-[![Version](https://img.shields.io/badge/version-2.0.0-brightgreen?style=flat-square)](https://github.com/syr-cn/ResearchClaw)
+[![Version](https://img.shields.io/badge/version-3.1.0-brightgreen?style=flat-square)](https://github.com/syr-cn/ResearchClaw)
 [![arXiv](https://img.shields.io/badge/arXiv-Free%20API-red?style=flat-square)](https://arxiv.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 [![Demo](https://img.shields.io/badge/Demo-GitHub%20Pages-green?style=flat-square)](https://syr-cn.github.io/ResearchClaw/)
@@ -51,14 +51,15 @@
 ### 📝 深度速读
 **Paper Reader**
 
-发一个 arXiv 链接，AI 读完 PDF，基于 **CRGP 分析法** 生成结构化笔记，还会保存精美 HTML 页面。
+发一个 arXiv 链接，AI 读完论文，基于 **DNL 7-section 框架** 生成结构化阅读笔记。
 
-- 📖 **CRGP 分析**：Context → Related Work → Gap → Proposal
-- 📊 含图表、具体实验数字、关键发现
-- 🎨 自动生成带图 HTML 阅读笔记
-- 🇨🇳 中英双语友好
+- 📖 **DNL 框架**：Metadata → Why-read → CRGP → Figures → Experiments → Insights → Next steps
+- 📊 含图表 URL、具体实验数字、消融分析
+- 📝 **默认输出 Markdown**（git-friendly，低 token 消耗）
+- 🎨 可选生成 HTML 页面（`--html`）
+- 🇨🇳 中英双语混合
 
-**触发：** arXiv 链接 / `帮我读一下`
+**触发：** arXiv 链接 / `帮我读一下` / `DNL`
 [▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/demo-paper-note.html)
 
 </td>
@@ -168,27 +169,29 @@
 
 ---
 
-### 📝 深度速读 + HTML 笔记
+### 📝 深度速读 + DNL 笔记
 
 ```
 帮我读一下这篇：https://arxiv.org/abs/2503.19823
 ```
 
-> 📝 论文速读 | Paper Quick Notes
+> 📝 DNL 完成 | AutoRefine
 > ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 > 📌 **AutoRefine: Search and Refine During Think**
-> 👤 Shi et al. | 📅 2025 | 📍 NeurIPS 2025
+> 👤 Shi et al. | 📅 2025 | ⭐ 4/5
+> 🔗 https://arxiv.org/abs/2503.19823
 >
-> 📖 **CRGP 分析**
-> 🔹 **Context** — RAG 让 LLM 查询外部知识，但检索到的信息常含噪声
-> 🔹 **Gap** — 现有方法只在推理前/后检索，缺少推理过程中的迭代精炼
-> 🔹 **Proposal** — 在推理链的连续搜索间插入「知识精炼」步骤
+> 💡 **核心发现：** 在推理链中插入知识精炼步骤比单纯增加检索更有效
+> 📊 **关键数据：** 2WikiMHQA EM 67.7, HotpotQA EM 55.3
+> ✨ **启发：** 精炼检索到的知识比检索本身更重要
 >
-> ⚙️ **方法** — Search-and-Refine-During-Think + 检索特定奖励 GRPO
-> 📊 **实验** — 2WikiMHQA EM 67.7 · HotpotQA EM 55.3 · 多跳推理显著提升
-> ✨ **洞察** — 精炼检索到的知识比检索本身更重要
->
-> 💾 HTML 笔记已保存（含图表 + CRGP 完整分析）
+> 💾 笔记 → papers/2026-04-01_autorefine.md
+
+想同时生成 HTML 页面？加 `--html`：
+
+```
+DNL https://arxiv.org/abs/2503.19823 --html
+```
 
 ---
 
@@ -317,13 +320,15 @@ whitelist_authors:
 ```
 用户: 帮我读一下 arxiv.org/abs/XXXXX
   ↓
-提取 arXiv ID → 获取元数据
+提取 arXiv ID → 获取元数据 + HTML 版本
   ↓
-内置 pdf 工具分析原文
+分析论文内容（Introduction, Method, Experiments）
   ↓
-提取：动机 · 方法 · 结果 · 局限 · 要点
+按 DNL 7-section 框架提取结构化信息
   ↓
-输出聊天摘要 + 生成 HTML 笔记页面
+输出 Markdown 笔记文件（默认）+ 聊天摘要
+  ↓
+（可选）生成 HTML 页面
 ```
 
 **零第三方依赖**：只需 OpenClaw + 网络，不需要任何额外 API Key。
@@ -350,7 +355,7 @@ whitelist_authors:
 | Say this | What happens |
 |---|---|
 | `推荐今日论文` | Daily arXiv paper recommendations, ranked by your profile |
-| `帮我读一下 [arXiv link]` | Deep read PDF → chat summary + saved HTML note |
+| `帮我读一下 [arXiv link]` | Deep read → markdown DNL note (+ optional HTML with `--html`) |
 | `加入待读 [link]` | Add paper to your reading list |
 | `我的论文列表` | View & regenerate your HTML reading dashboard |
 | `更新我的研究画像` | Update research taste profile + visual HTML page |

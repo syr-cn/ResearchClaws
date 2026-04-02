@@ -11,11 +11,11 @@ description: >
 metadata:
   openclaw:
     homepage: https://github.com/syr-cn/ResearchClaw
-    version: "3.0.0"
+    version: "3.1.0"
     author: syr-cn
 ---
 
-# ResearchClaw v3.0 — Modular Research Assistant
+# ResearchClaw v3.1 — Modular Research Assistant
 
 ResearchClaw is a complete AI research companion with **6 atomic skills**.
 Each skill is self-contained and can be used independently.
@@ -25,7 +25,7 @@ Each skill is self-contained and can be used independently.
 | # | Skill | Directory | What it does |
 |---|---|---|---|
 | 1 | **Paper Scout** 📡 | `skills/paper-scout/` | Daily arXiv paper discovery with personalized ranking |
-| 2 | **Paper Reader** 📝 | `skills/paper-reader/` | Deep reading → CRGP structured notes → HTML page |
+| 2 | **Paper Reader** 📝 | `skills/paper-reader/` | Deep reading → markdown DNL notes (default) or HTML page |
 | 3 | **Reading List** 📋 | `skills/reading-list/` | Kanban paper management + HTML dashboard |
 | 4 | **Research Profile** 🧠 | `skills/research-profile/` | Research taste profile + visualization |
 | 5 | **Idea Generator** 💡 | `skills/idea-generator/` | Cross-paper insights → research idea proposals |
