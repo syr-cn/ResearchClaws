@@ -1,8 +1,8 @@
 ---
 name: paper-reader
 description: >
-  Deep-read an arXiv paper and generate structured DNL (Deep Note & List) reading notes.
-  Default output: markdown DNL file (low token cost, git-friendly).
+  Deep-read an arXiv paper and generate structured Deep Note reading notes.
+  Default output: markdown deep note file (low token cost, git-friendly).
   Optional: HTML page from template.
   Trigger: 帮我读一下, DNL, 论文速读, paper notes, or an arXiv link.
 ---
@@ -11,10 +11,10 @@ description: >
 
 ## Overview
 
-Given an arXiv paper, produce a **structured DNL reading note** as a markdown file.
+Given an arXiv paper, produce a **structured deep reading note** as a markdown file.
 Optionally generate an HTML page from the paper-note template.
 
-**Default output format: Markdown DNL** (saves tokens, git-friendly, composable).
+**Default output format: Markdown Deep Note** (saves tokens, git-friendly, composable).
 **HTML output:** Add `--html` or say `生成 HTML` to also produce an HTML page.
 
 **Triggers:** arXiv link · `帮我读一下` · `DNL` · `论文速读` · `paper notes`
@@ -54,7 +54,7 @@ Also fetch HTML version for figures: `https://arxiv.org/html/{ARXIV_ID}v1`
 Use `web_fetch` on the HTML version for structured content extraction.
 Focus on: Abstract, Introduction, Method, Experiments (tables/numbers), Conclusion.
 
-Extract using the **DNL 7-section framework**:
+Extract using the **Deep Note 7-section framework**:
 
 | Section | What to extract |
 |---------|----------------|
@@ -81,15 +81,15 @@ Extract using the **DNL 7-section framework**:
 
 **Final = Base + Quality + Observation** (max 5/5)
 
----## Step 4 — Write Markdown DNL File
+---## Step 4 — Write Markdown Deep Note File
 
 **Output directory:** Same repo as reading notes (e.g., `papers/` directory).
 **Filename:** `YYYY-MM-DD_{alias}.md` (e.g., `2026-04-01_gems.md`)
 
-### Markdown DNL Template
+### Markdown Deep Note Template
 
 ```markdown
-# DNL Deep Note — {ALIAS}
+# Deep Note — {ALIAS}
 
 ## 0) Metadata
 - **Title:** {FULL_TITLE}
@@ -165,7 +165,7 @@ Extract using the **DNL 7-section framework**:
 {Bullet explanation for each component}
 ```
 
-### Key rules for markdown DNL:
+### Key rules for markdown deep note:
 1. **Use real numbers** — never write "XX" or placeholders
 2. **Figures must have URLs** from arxiv HTML version when available
 3. **Tables use pipe format** — compatible with GitHub/Obsidian
@@ -177,7 +177,7 @@ Extract using the **DNL 7-section framework**:
 After writing the markdown file, output a brief summary in chat:
 
 ```
-📝 DNL 完成 | {ALIAS}
+📝 Deep Note 完成 | {ALIAS}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📌 **{TITLE}**
 👤 {AUTHORS} | 📅 {YEAR} | ⭐ {RATING}
@@ -218,7 +218,7 @@ See the root SKILL.md for the full placeholder mapping table.
 
 ## Token Efficiency Notes
 
-- **Markdown DNL costs ~2-3K output tokens** (vs ~8-10K for HTML template filling)
+- **Markdown deep note costs ~2-3K output tokens** (vs ~8-10K for HTML template filling)
 - Markdown files are git-friendly: diff, merge, grep all work naturally
 - Reading list tables can directly link to markdown notes via relative paths
 - HTML generation is now opt-in, not default — saves tokens on every paper read

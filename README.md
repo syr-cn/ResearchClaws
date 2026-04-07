@@ -10,7 +10,7 @@
 [![Version](https://img.shields.io/badge/version-3.1.0-brightgreen?style=flat-square)](https://github.com/AlphaLab-USTC/ResearchClaw)
 [![arXiv](https://img.shields.io/badge/arXiv-Free%20API-red?style=flat-square)](https://arxiv.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
-[![Demo](https://img.shields.io/badge/Demo-GitHub%20Pages-green?style=flat-square)](https://syr-cn.github.io/ResearchClaw/)
+[![Demo](https://img.shields.io/badge/Demo-GitHub%20Pages-green?style=flat-square)](https://alphalab-ustc.github.io/ResearchClaw/)
 
 <br>
 
@@ -20,7 +20,7 @@
 
 <br>
 
-[🌐 在线演示](https://syr-cn.github.io/ResearchClaw/) · [📖 安装](#一句话安装) · [⚙️ 配置](docs/config.md) · [🐛 Issues](https://github.com/AlphaLab-USTC/ResearchClaw/issues)
+[🌐 在线演示](https://alphalab-ustc.github.io/ResearchClaw/) · [📖 安装](#一句话安装) · [⚙️ 配置](docs/config.md) · [🐛 Issues](https://github.com/AlphaLab-USTC/ResearchClaw/issues)
 
 </div>
 
@@ -43,7 +43,7 @@
 - ⏰ 支持每日定时推送
 
 **触发：** `推荐今日论文`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/case1-daily-signal-brief.html)
+[▶ 查看演示](https://alphalab-ustc.github.io/ResearchClaw/showcase/case1-daily-signal-brief.html)
 
 </td>
 <td width="33%" valign="top">
@@ -51,16 +51,16 @@
 ### 📝 深度速读
 **Paper Reader**
 
-发一个 arXiv 链接，AI 读完论文，基于 **DNL 7-section 框架** 生成结构化阅读笔记。
+发一个 arXiv 链接，AI 读完论文，基于 **Deep Note 7-section 框架** 生成结构化阅读笔记。
 
-- 📖 **DNL 框架**：Metadata → Why-read → CRGP → Figures → Experiments → Insights → Next steps
+- 📖 **Deep Note 框架**：Metadata → Why-read → CRGP → Figures → Experiments → Insights → Next steps
 - 📊 含图表 URL、具体实验数字、消融分析
 - 📝 **默认输出 Markdown**（git-friendly，低 token 消耗）
 - 🎨 可选生成 HTML 页面（`--html`）
 - 🇨🇳 中英双语混合
 
 **触发：** arXiv 链接 / `帮我读一下` / `DNL`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/demo-paper-note.html)
+[▶ 查看演示](https://alphalab-ustc.github.io/ResearchClaw/showcase/demo-paper-note.html)
 
 </td>
 <td width="33%" valign="top">
@@ -76,7 +76,7 @@
 - 🔗 每篇都链接到 HTML 笔记
 
 **触发：** `我的论文列表` / `加入待读`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/demo-reading-list.html)
+[▶ 查看演示](https://alphalab-ustc.github.io/ResearchClaw/showcase/demo-reading-list.html)
 
 </td>
 </tr>
@@ -94,7 +94,7 @@
 - 🔄 从对话反馈自动更新
 
 **触发：** `我的研究画像` / `更新我的研究画像`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/demo-research-profile.html)
+[▶ 查看演示](https://alphalab-ustc.github.io/ResearchClaw/showcase/demo-research-profile.html)
 
 </td>
 <td width="33%" valign="top">
@@ -110,7 +110,7 @@
 - ⭐ 时机分析
 
 **触发：** `给我一些研究灵感`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/case3-research-proposal.html)
+[▶ 查看演示](https://alphalab-ustc.github.io/ResearchClaw/showcase/case3-research-proposal.html)
 
 </td>
 <td width="33%" valign="top">
@@ -126,7 +126,7 @@
 - 💬 Reviewer 回复起草
 
 **触发：** `论文大纲` / `写引言` / `rebuttal`
-[▶ 查看演示](https://syr-cn.github.io/ResearchClaw/showcase/case4-multi-agent-codebase.html)
+[▶ 查看演示](https://alphalab-ustc.github.io/ResearchClaw/showcase/case4-multi-agent-codebase.html)
 
 </td>
 </tr>
@@ -169,13 +169,13 @@
 
 ---
 
-### 📝 深度速读 + DNL 笔记
+### 📝 深度速读 + Deep Note 笔记
 
 ```
 帮我读一下这篇：https://arxiv.org/abs/2503.19823
 ```
 
-> 📝 DNL 完成 | AutoRefine
+> 📝 Deep Note 完成 | AutoRefine
 > ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 > 📌 **AutoRefine: Search and Refine During Think**
 > 👤 Shi et al. | 📅 2025 | ⭐ 4/5
@@ -253,14 +253,14 @@ rebuttal
 
 ## 🎬 在线演示 | Live Showcase
 
-访问 [syr-cn.github.io/ResearchClaw](https://syr-cn.github.io/ResearchClaw/) 查看完整演示：
+访问 [alphalab-ustc.github.io/ResearchClaw](https://alphalab-ustc.github.io/ResearchClaw/) 查看完整演示：
 
 | 案例 | 描述 |
 |------|------|
-| [每日信号简报](https://syr-cn.github.io/ResearchClaw/showcase/case1-daily-signal-brief.html) | Paper Scout 多源聚合推送示例 |
-| [论文阅读笔记](https://syr-cn.github.io/ResearchClaw/showcase/case2-paper-reading-notes.html) | Paper Reader HTML 笔记示例 |
-| [研究方向分析](https://syr-cn.github.io/ResearchClaw/showcase/case3-research-proposal.html) | Idea Generator 灵感生成示例 |
-| [多智能体协作](https://syr-cn.github.io/ResearchClaw/showcase/case4-multi-agent-codebase.html) | Paper Writer 写作辅助示例 |
+| [每日信号简报](https://alphalab-ustc.github.io/ResearchClaw/showcase/case1-daily-signal-brief.html) | Paper Scout 多源聚合推送示例 |
+| [论文阅读笔记](https://alphalab-ustc.github.io/ResearchClaw/showcase/case2-paper-reading-notes.html) | Paper Reader HTML 笔记示例 |
+| [研究方向分析](https://alphalab-ustc.github.io/ResearchClaw/showcase/case3-research-proposal.html) | Idea Generator 灵感生成示例 |
+| [多智能体协作](https://alphalab-ustc.github.io/ResearchClaw/showcase/case4-multi-agent-codebase.html) | Paper Writer 写作辅助示例 |
 
 ---
 
@@ -324,7 +324,7 @@ whitelist_authors:
   ↓
 分析论文内容（Introduction, Method, Experiments）
   ↓
-按 DNL 7-section 框架提取结构化信息
+按 Deep Note 7-section 框架提取结构化信息
   ↓
 输出 Markdown 笔记文件（默认）+ 聊天摘要
   ↓
@@ -355,7 +355,7 @@ whitelist_authors:
 | Say this | What happens |
 |---|---|
 | `推荐今日论文` | Daily arXiv paper recommendations, ranked by your profile |
-| `帮我读一下 [arXiv link]` | Deep read → markdown DNL note (+ optional HTML with `--html`) |
+| `帮我读一下 [arXiv link]` | Deep read → markdown deep note (+ optional HTML with `--html`) |
 | `加入待读 [link]` | Add paper to your reading list |
 | `我的论文列表` | View & regenerate your HTML reading dashboard |
 | `更新我的研究画像` | Update research taste profile + visual HTML page |
@@ -383,6 +383,6 @@ Check out our other projects:
 
 <div align="center">
 
-Made with ❤️ for researchers · MIT License · [syr-cn.github.io/ResearchClaw](https://syr-cn.github.io/ResearchClaw/)
+Made with ❤️ for researchers · MIT License · [alphalab-ustc.github.io/ResearchClaw](https://alphalab-ustc.github.io/ResearchClaw/)
 
 </div>
