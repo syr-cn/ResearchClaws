@@ -10,9 +10,9 @@ description: >
   跨论文分析, 帮我写论文, paper writing, 论文大纲, 写引言, rebuttal.
 metadata:
   openclaw:
-    homepage: https://github.com/syr-cn/ResearchClaw
+    homepage: https://github.com/AlphaLab-USTC/ResearchClaw
     version: "3.1.0"
-    author: syr-cn
+    author: AlphaLab-USTC
 ---
 
 # ResearchClaw v3.1 — Modular Research Assistant
@@ -54,5 +54,5 @@ Each skill is self-contained and can be used independently.
 ## Install
 
 ```
-帮我安装 ResearchClaw：https://raw.githubusercontent.com/syr-cn/ResearchClaw/main/docs/install.md
+帮我安装 ResearchClaw：https://raw.githubusercontent.com/AlphaLab-USTC/ResearchClaw/main/docs/install.md
 ```

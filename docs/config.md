@@ -92,4 +92,4 @@ INTERESTS:
 
 ---
 
-项目主页：https://github.com/syr-cn/ResearchClaw
+项目主页：https://github.com/AlphaLab-USTC/ResearchClaw

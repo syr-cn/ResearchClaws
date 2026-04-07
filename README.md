@@ -7,7 +7,7 @@
 *由 [OpenClaw](https://openclaw.ai) 驱动 · Powered by OpenClaw*
 
 [![OpenClaw Skill](https://img.shields.io/badge/OpenClaw-Skill-blue?style=flat-square)](https://openclaw.ai)
-[![Version](https://img.shields.io/badge/version-3.1.0-brightgreen?style=flat-square)](https://github.com/syr-cn/ResearchClaw)
+[![Version](https://img.shields.io/badge/version-3.1.0-brightgreen?style=flat-square)](https://github.com/AlphaLab-USTC/ResearchClaw)
 [![arXiv](https://img.shields.io/badge/arXiv-Free%20API-red?style=flat-square)](https://arxiv.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 [![Demo](https://img.shields.io/badge/Demo-GitHub%20Pages-green?style=flat-square)](https://syr-cn.github.io/ResearchClaw/)
@@ -20,7 +20,7 @@
 
 <br>
 
-[🌐 在线演示](https://syr-cn.github.io/ResearchClaw/) · [📖 安装](#一句话安装) · [⚙️ 配置](docs/config.md) · [🐛 Issues](https://github.com/syr-cn/ResearchClaw/issues)
+[🌐 在线演示](https://syr-cn.github.io/ResearchClaw/) · [📖 安装](#一句话安装) · [⚙️ 配置](docs/config.md) · [🐛 Issues](https://github.com/AlphaLab-USTC/ResearchClaw/issues)
 
 </div>
 
@@ -139,7 +139,7 @@
 把这句话发给你的 OpenClaw 代理：
 
 ```
-帮我安装 ResearchClaw：https://raw.githubusercontent.com/syr-cn/ResearchClaw/main/docs/install.md
+帮我安装 ResearchClaw：https://raw.githubusercontent.com/AlphaLab-USTC/ResearchClaw/main/docs/install.md
 ```
 
 > **就这一句话。** 代理会自动下载、注册技能，无需任何手动操作。
@@ -339,7 +339,7 @@ whitelist_authors:
 
 - 🦞 Built with [OpenClaw](https://openclaw.ai) — AI assistant platform
 - 📄 Paper data from [arXiv](https://arxiv.org) (free open-access API)
-- 🧠 Created by [@syr-cn](https://github.com/syr-cn) (Yaorui Shi, USTC)
+- 🧠 Created by [AlphaLab@USTC](https://github.com/AlphaLab-USTC) (Yaorui Shi et al.)
 
 ---
 
@@ -347,7 +347,7 @@ whitelist_authors:
 
 **Install** (one line — send to your OpenClaw agent):
 ```
-帮我安装 ResearchClaw：https://raw.githubusercontent.com/syr-cn/ResearchClaw/main/docs/install.md
+帮我安装 ResearchClaw：https://raw.githubusercontent.com/AlphaLab-USTC/ResearchClaw/main/docs/install.md
 ```
 
 **6 capabilities at a glance:**
