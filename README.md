@@ -369,6 +369,18 @@ Zero third-party dependencies.
 
 ---
 
+---
+
+## 🔗 More from AlphaLab
+
+Check out our other projects:
+
+- 🦀 [**PaperClaw**](https://github.com/AkaliKong/PaperClaw) — Automated paper collection and analysis toolkit
+- 🛠️ [**OhMyCode**](https://github.com/AlphaLab-USTC/OhMyCode) — Code generation and repair benchmark
+- 📚 [**Must-Read-LLM-Papers**](https://github.com/AlphaLab-USTC/Must-Read-LLM-Papers) — Curated reading list for LLM research
+
+---
+
 <div align="center">
 
 Made with ❤️ for researchers · MIT License · [syr-cn.github.io/ResearchClaw](https://syr-cn.github.io/ResearchClaw/)
